@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="add_income" type="id">add_income</item>
+    <item name="add_expense" type="id">add_expense</item>
+</resources>

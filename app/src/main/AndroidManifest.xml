@@ -15,12 +15,85 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+            <intent-filter>
+                <action android:name="com.example.shanika.expensetracker.Home" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
         </activity>
-        <activity android:name=".SetLimit" />
-        <activity android:name=".Categories" />
-        <activity android:name=".AddCategory" />
-        <activity android:name=".Search" />
-        <activity android:name=".History"></activity>
+
+        <activity android:name=".SetLimit"
+            android:label="limit" >
+            <intent-filter>
+
+                <action android:name="com.example.shanika.expensetracker.SetLimit" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
+        <activity android:name=".Categories" >
+            <intent-filter>
+
+                <action android:name="com.example.shanika.expensetracker.Categories" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
+        <activity android:name=".AddCategory" >
+            <intent-filter>
+
+                <action android:name="com.example.shanika.expensetracker.AddCategory" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
+        <activity android:name=".Search" >
+            <intent-filter>
+
+                <action android:name="com.example.shanika.expensetracker.Search" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
+        <activity android:name=".History" >
+            <intent-filter>
+
+                <action android:name="com.example.shanika.expensetracker.History" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
+        <activity android:name=".NewRecord" >
+            <intent-filter>
+
+                <action android:name="com.example.shanika.expensetracker.NewRecord" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
+        <activity android:name=".AddFrequentRecords" >
+            <intent-filter>
+
+                <action android:name="com.example.shanika.expensetracker.AddFrequentRecords" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
+        <activity android:name=".FrequentRecordDisplay">
+            <intent-filter>
+
+                <action android:name="com.example.shanika.expensetracker.FrequentRecordDisplay" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

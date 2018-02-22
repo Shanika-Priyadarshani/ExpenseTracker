@@ -1,23 +1,21 @@
 package com.example.shanika.expensetracker;
 
 import android.content.Intent;
-import android.support.design.widget.NavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
+public class NewRecord extends AppCompatActivity {
 
-public class History extends AppCompatActivity {
-    private static ImageButton back;
+    public static ImageButton back;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_history);
+        setContentView(R.layout.activity_new_record);
         onClickBack();
     }
-
-
 
     public void onClickBack() {
 
@@ -34,5 +32,11 @@ public class History extends AppCompatActivity {
         );
 
 
+    }
+
+    public void changeType(){
+        String string = getString(R.string.title);
+        TextView title= (TextView)findViewById(R.id.addArea);
+        title.setText(string);
     }
 }

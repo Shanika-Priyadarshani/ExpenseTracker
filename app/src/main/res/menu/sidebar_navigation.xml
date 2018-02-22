@@ -2,27 +2,33 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:title="Calculator"
+        android:id="@+id/calculator"
         android:icon="@drawable/ic_credit_card_green_500_24dp"
-        />
+        android:title="Calculator" />
     <item
-        android:title="History"
+        android:id="@+id/history"
         android:icon="@drawable/ic_history_light_green_500_24dp"
-        />
+        android:title="History"
+        android:onClick="historyButtonClicked"/>
     <item
-        android:title="Search"
+        android:id="@+id/search"
         android:icon="@drawable/ic_search_green_500_24dp"
+        android:title="Search"
+        android:onClick="searchButtonClicked"
         />
     <item
-        android:title="Categories"
+        android:id="@+id/categories"
         android:icon="@drawable/ic_assignment_green_500_24dp"
-        />
+        android:title="Categories"
+        android:onClick="categoriesButtonClicked"/>
     <item
-        android:title="Frequent Records"
+        android:id="@+id/frequent"
         android:icon="@drawable/ic_access_time_green_500_24dp"
-        />
+        android:title="Frequent Records"
+        android:onClick="frequentButtonClicked"/>
     <item
-        android:title="Set Limit"
+        android:id="@+id/limit"
         android:icon="@drawable/ic_stop_screen_share_green_500_24dp"
-        />
+        android:title="Set Limit"
+        android:onClick="limitButtonClicked"/>
 </menu>

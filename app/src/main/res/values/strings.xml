@@ -1,5 +1,43 @@
 <resources>
     <string name="app_name">Expense Tracker</string>
 
+    <string name='type_prompt'>Choose a Type</string>
+    <string-array name="type_array">
 
+        <item>Income</item>
+        <item>Expense</item>
+    </string-array>
+
+    <string name='incomeCategory_prompt'>Choose a Type</string>
+    <string-array name="incomeCategory_array">
+         <item>Loan</item>
+        <item>Salary</item>
+        <item>Sales</item>
+        <item>Savings</item>
+    </string-array>
+
+    <string name='expenseCategory_prompt'>Choose a Type</string>
+    <string-array name="expenseCategory_array">
+        <item>Clothing</item>
+        <item>Communication</item>
+        <item>Education</item>
+        <item>Food</item>
+        <item>Fun</item>
+        <item>Health</item>
+        <item>Holiday</item>
+        <item>Household</item>
+        <item>Payments</item>
+        <item>Transportation</item>
+        <item>Other</item>
+    </string-array>
+
+    <string name='time_prompt'>Choose a Type</string>
+    <string-array name="time_array">
+
+        <item>Daily</item>
+        <item>Monthly</item>
+        <item>Yearly</item>
+    </string-array>
+
+    <string name='title' id='title'>Add new Expense</string>
 </resources>

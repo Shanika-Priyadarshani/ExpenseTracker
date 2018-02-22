@@ -4,20 +4,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.shanika.expensetracker.History">
+    tools:context="com.example.shanika.expensetracker.FrequentRecordDisplay">
 
     <LinearLayout
         android:layout_width="0dp"
-        android:layout_height="141dp"
+        android:layout_height="503dp"
         android:orientation="vertical"
-        tools:layout_editor_absoluteX="2dp"
-        tools:layout_editor_absoluteY="-3dp">
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="4dp">
 
         <LinearLayout
 
             android:id="@+id/topBar"
             android:layout_width="match_parent"
             android:layout_height="70dp"
+            android:layout_marginTop="0dp"
             android:background="@drawable/gg"
             android:backgroundTintMode="screen"
             android:padding="5dp"
@@ -42,76 +43,49 @@
                 android:contextClickable="true"
                 android:cropToPadding="false"
                 android:elevation="0dp"
-                android:onClick="onBackButtonClick"
                 android:scaleType="centerCrop"
                 app:srcCompat="@drawable/ic_keyboard_arrow_left_red_900_24dp" />
 
             <TextView
 
-                android:id="@+id/history"
-                android:layout_width="wrap_content"
+
+                android:layout_width="200dp"
                 android:layout_height="match_parent"
                 android:layout_gravity="top|center"
                 android:layout_marginBottom="0dp"
-                android:layout_marginLeft="50dp"
-                android:layout_marginRight="60dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
                 android:layout_marginTop="5dp"
-                android:gravity="center"
-                android:text="History"
+                android:layout_weight="0.33"
+                android:gravity="left|center"
+                android:text="Frequent Records"
                 android:textColor="#0c2cbb"
                 android:textColorLink="@android:color/holo_orange_dark"
                 android:textDirection="firstStrongRtl"
-                android:textSize="28sp"
+                android:textSize="24sp"
                 android:textStyle="bold" />
 
             <ImageButton
-                android:id="@+id/select"
-                style="@style/Widget.AppCompat.ImageButton"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_gravity="top|right"
-                android:layout_marginLeft="30dp"
-                android:adjustViewBounds="true"
-                android:background="@drawable/ic_more_vert_red_900_24dp"
-                android:cropToPadding="true"
-                android:elevation="0dp"
-                android:scaleType="centerCrop"
-                android:visibility="visible" />
-
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:orientation="horizontal">
-
-            <TextView
-
-                android:layout_width="match_parent"
+                android:id="@+id/add"
+                android:layout_width="60dp"
                 android:layout_height="60dp"
-                android:background="@drawable/orange"
-                android:ems="10"
-                android:gravity="center"
-                android:inputType="textMultiLine"
-                android:text="All Categories"
-                android:textColor="@android:color/background_dark"
-                android:textSize="24sp"
-                android:textStyle="bold" />
+                android:layout_weight="1"
+                android:background="@drawable/ic_add_red_900_24dp"
+                app:srcCompat="@drawable/ic_add_red_900_24dp" />
+
+
         </LinearLayout>
 
         <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@android:color/darker_gray">
+            android:layout_height="match_parent">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@android:color/darker_gray"
                 android:orientation="vertical" />
         </ScrollView>
-    </LinearLayout>
 
+    </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>

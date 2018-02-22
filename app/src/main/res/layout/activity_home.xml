@@ -10,23 +10,6 @@
     tools:context="com.example.shanika.expensetracker.Home">
 
 
-    <android.support.design.widget.NavigationView
-        android:id="@+id/navigation"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:background="@android:color/holo_blue_light"
-        android:visibility="invisible"
-        app:menu="@menu/sidebar_navigation" />
-
-    <android.support.design.widget.BottomNavigationView
-        android:id="@+id/bottom_navigation"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        app:menu="@menu/navigation_item"
-
-        />
-
     <LinearLayout
 
         android:id="@+id/topBar"
@@ -355,5 +338,23 @@
             </LinearLayout>
         </LinearLayout>
     </ScrollView>
+
+    <android.support.design.widget.NavigationView
+        android:id="@+id/navigation"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_marginTop="70dp"
+        android:background="@android:color/holo_blue_bright"
+        android:visibility="invisible"
+        app:menu="@menu/sidebar_navigation" />
+
+    <android.support.design.widget.BottomNavigationView
+        android:id="@+id/bottom_navigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        app:menu="@menu/navigation_item"
+
+        />
 
 </android.support.design.widget.CoordinatorLayout>

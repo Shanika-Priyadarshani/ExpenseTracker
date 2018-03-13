@@ -17,10 +17,21 @@ public class Functions {
 
         final Calendar c = Calendar.getInstance();
         String mYear = Integer.toString(c.get(Calendar.YEAR));
-        String mMonth = Integer.toString(c.get(Calendar.MONTH));
+        String mMonth = Integer.toString(c.get(Calendar.MONTH)+1);
         String mDay = Integer.toString(c.get(Calendar.DAY_OF_MONTH));
+        String mn ="";
+        String dy ="";
 
-        date = "" + mDay + "/" + mMonth + "/" + mYear + "";
+        if(String.valueOf(mDay).length()==1){
+            dy ="0";
+        }
+
+        if(String.valueOf(mMonth).length()==1){
+            mn ="0";
+        }
+
+
+        date = "" + mYear + "-" +mn+ mMonth + "-" +dy+ mDay + "";
         return date;
     }
 

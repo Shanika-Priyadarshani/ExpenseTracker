@@ -75,8 +75,19 @@ public class AddIncomeRecord extends AppCompatActivity {
                             @Override
                             public void onDateSet(DatePicker view, int year,
                                                   int monthOfYear, int dayOfMonth) {
-                                dateview.setText(dayOfMonth + "/"
-                                        + (monthOfYear + 1) + "/" + year);
+                                String mn ="";
+                                String dy ="";
+
+                                if(String.valueOf(dayOfMonth).length()==1){
+                                    dy ="0";
+                                }
+
+                                if(String.valueOf(monthOfYear).length()==1){
+                                    mn ="0";
+                                }
+
+                                dateview.setText( year+ "-"
+                                      +mn  + (monthOfYear + 1) + "-" + dy+dayOfMonth);
                             }
                         }, mYear, mMonth, mDay);
                 datePickerDialog.show();

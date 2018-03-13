@@ -12,9 +12,11 @@ public class Schema {
 
     public ArrayList<String> menuSet;
     SQLiteDatabase db;
+    ArrayList<String> searchList;
 
     public Schema(Context context) {
         menuSet = new ArrayList<>();
+        searchList =new ArrayList<>();
         DatabaseHelper helper = new DatabaseHelper(context);
         db = helper.getWritableDatabase();
     }
@@ -41,7 +43,31 @@ public class Schema {
             return menuSet;
         }
 
+    public ArrayList<String> getSearchList(String start, String end, String type) {
 
+        Cursor additional;
+        additional = db.rawQuery("Select TYPE from Category where CAT_NAME='"+type+"'",null);
+        additional.moveToFirst();
+        String inEx= additional.getString(additional.getColumnIndex("TYPE"));
+        Cursor cursor;
 
+        cursor = db.rawQuery("Select * from '"+ inEx+"'where Category='"+type+"' and DATE between '"+start+"' AND '"+end+"'order by DATE", null);
+
+        while (cursor.moveToNext()) {
+            StringBuffer  buffer = new StringBuffer();
+
+            buffer.append("Category : "+cursor.getString(cursor.getColumnIndex("CATEGORY"))+"\n");
+            buffer.append("Date : "+cursor.getString(cursor.getColumnIndex("DATE"))+"\n");
+            buffer.append("Amount : "+cursor.getString(cursor.getColumnIndex("AMOUNT"))+"\n");
+            buffer.append("Description : "+cursor.getString(cursor.getColumnIndex("DESCRIPTION"))+"\n\n");
+
+            searchList.add(buffer.toString());
+        }
+
+        cursor.close();
+        db.close();
+
+        return searchList;
+    }
 
 }

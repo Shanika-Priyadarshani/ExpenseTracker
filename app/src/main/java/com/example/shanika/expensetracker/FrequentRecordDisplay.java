@@ -10,6 +10,7 @@ public class FrequentRecordDisplay extends AppCompatActivity {
 
     private static ImageButton back;
     private static ImageButton add;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,13 +27,19 @@ public class FrequentRecordDisplay extends AppCompatActivity {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent intent= new Intent("com.example.shanika.expensetracker.Home");
-                        startActivity(intent);
+                        onBackPressed();
                     }
                 }
 
         );
 
+    }
+
+    @Override
+    public void onBackPressed(){
+        Intent intent = new Intent(FrequentRecordDisplay.this, Home.class);
+        startActivity(intent);
+        finish();
     }
 
     public void onClickAdd() {
@@ -42,8 +49,10 @@ public class FrequentRecordDisplay extends AppCompatActivity {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent intent= new Intent("com.example.shanika.expensetracker.AddFrequentRecords");
+                        Intent intent = new Intent("com.example.shanika.expensetracker.AddFrequentRecords");
                         startActivity(intent);
+                        finish();
+
                     }
                 }
 

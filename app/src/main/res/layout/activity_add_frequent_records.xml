@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="-6dp">
+        tools:layout_editor_absoluteY="0dp">
 
         <LinearLayout
 
@@ -88,7 +88,7 @@
 
                     <TextView
                         android:id="@+id/textView9"
-                        android:layout_width="200dp"
+                        android:layout_width="300dp"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="5dp"
                         android:layout_weight="1"
@@ -99,39 +99,69 @@
                         android:textStyle="bold" />
 
                     <Spinner
-                        android:id="@+id/spinner5"
+                        android:id="@+id/repeatSpinner"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
+                        android:layout_marginRight="10dp"
                         android:layout_weight="1"
-                        android:gravity="center" />
+                        android:entries="@array/time_array"
+                        android:gravity="center"
+                        android:prompt="@string/time_prompt" />
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/StartDate"
+                    android:id="@+id/frequentDateArea"
                     android:layout_width="match_parent"
-                    android:layout_height="100dp"
-                    android:layout_marginBottom="5dp"
-                    android:layout_marginTop="5dp"
-                    android:orientation="horizontal">
+                    android:layout_height="70dp"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginTop="15dp"
+                    android:orientation="horizontal"
+                    android:weightSum="1">
 
                     <TextView
-                        android:id="@+id/strt"
-                        android:layout_width="200dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="5dp"
+                        android:id="@+id/StartDate"
+                        android:layout_width="300dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="5dp"
                         android:layout_weight="1"
+                        android:filterTouchesWhenObscured="true"
+                        android:fitsSystemWindows="true"
+                        android:focusable="true"
+                        android:focusableInTouchMode="true"
+                        android:freezesText="true"
                         android:gravity="left|center"
-                        android:text="Start Date :"
+                        android:hapticFeedbackEnabled="true"
+                        android:includeFontPadding="true"
+                        android:keepScreenOn="true"
+                        android:text="Start Date"
                         android:textColor="@android:color/background_dark"
                         android:textSize="24sp"
                         android:textStyle="bold" />
 
-                    <DatePicker
-                        android:id="@+id/datePicker3"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1" />
+                    <TextView
+                        android:id="@+id/startDateView"
+                        android:layout_width="150dp"
+                        android:layout_height="40dp"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_weight="0.67"
+                        android:background="#fce3b5"
+                        android:clickable="false"
+                        android:contextClickable="false"
+                        android:gravity="left|center_vertical" />
+
+                    <ImageButton
+                        android:id="@+id/startDateBtn"
+                        android:layout_width="48dp"
+                        android:layout_height="50dp"
+                        android:layout_marginRight="10dp"
+                        android:background="@drawable/ic_date_range_red_900_24dp"
+                        android:elevation="2dp"
+                        android:translationY="10dp" />
+
                 </LinearLayout>
+
 
                 <LinearLayout
                     android:id="@+id/OccuringDay"
@@ -144,20 +174,94 @@
                     <TextView
 
                         android:id="@+id/rpt"
-                        android:layout_width="200dp"
+                        android:layout_width="170dp"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="5dp"
                         android:gravity="left|center"
-                        android:text="Day to occur :"
+                        android:text="Time  to occur :"
                         android:textColor="@android:color/background_dark"
                         android:textSize="24sp"
                         android:textStyle="bold" />
 
-                    <Spinner
-                        android:id="@+id/spinner6"
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="50dp"
-                        android:layout_weight="1" />
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:id="@+id/dayilyLayout"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:orientation="horizontal"
+                            android:visibility="visible">
+
+                            <TextView
+                                android:id="@+id/occuringTime"
+                                android:layout_width="150dp"
+                                android:layout_height="50dp"
+                                android:layout_weight="1"
+                                android:visibility="visible" />
+
+                            <ImageButton
+                                android:id="@+id/occuringTimeBtn"
+                                android:layout_width="50dp"
+                                android:layout_height="50dp"
+                                android:layout_marginRight="10dp"
+                                android:layout_weight="1"
+                                android:background="@drawable/ic_today_red_900_24dp"
+                                android:onClick="occuringTimeBtnPressed()"
+                                android:visibility="visible" />
+                        </LinearLayout>
+
+                        <Spinner
+                            android:id="@+id/weekDaysSpinner"
+                            android:layout_width="200dp"
+                            android:layout_height="50dp"
+                            android:layout_weight="1"
+                            android:visibility="gone"
+                            android:entries="@array/day_array"
+                            android:gravity="center"
+                            android:prompt="@string/day_prompt" />
+
+                        <Spinner
+                            android:id="@+id/monthDaysSpinner"
+                            android:layout_width="200dp"
+                            android:layout_height="50dp"
+                            android:layout_weight="1"
+                            android:visibility="gone"
+                            android:entries="@array/month_array"
+                            android:gravity="center"
+                            android:prompt="@string/month_prompt" />
+
+                        <LinearLayout
+                            android:id="@+id/yearLayout"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:orientation="horizontal"
+                            android:visibility="gone">
+
+                            <Spinner
+                                android:id="@+id/yrMonth"
+                                android:layout_width="100dp"
+                                android:layout_height="50dp"
+                                android:layout_weight="1"
+                                android:entries="@array/month_array"
+                                android:gravity="center"
+                                android:prompt="@string/month_prompt" />
+
+                            <Spinner
+                                android:id="@+id/yrDay"
+                                android:layout_width="100dp"
+                                android:layout_height="50dp"
+                                android:layout_weight="1"
+                                android:entries="@array/day_array"
+                                android:gravity="center"
+                                android:prompt="@string/day_prompt" />
+                        </LinearLayout>
+                    </LinearLayout>
+
                 </LinearLayout>
 
                 <LinearLayout
@@ -171,7 +275,7 @@
                     <TextView
 
                         android:layout_width="100dp"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:layout_marginLeft="5dp"
                         android:layout_weight="1"
                         android:gravity="left|center"
@@ -182,19 +286,22 @@
 
                     <TextView
                         android:id="@+id/textView14"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="30dp"
+                        android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:text="Rs. "
                         android:textColor="@color/colorPrimaryDark"
                         android:textSize="24sp"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        android:translationY="10dp" />
 
                     <EditText
                         android:id="@+id/editText6"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="40dp"
+                        android:layout_marginRight="10dp"
                         android:layout_weight="1"
+                        android:background="?attr/colorButtonNormal"
                         android:ems="10"
                         android:inputType="numberDecimal" />
 
@@ -210,7 +317,7 @@
 
                     <TextView
 
-                        android:layout_width="230dp"
+                        android:layout_width="300dp"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="5dp"
                         android:layout_weight="1"
@@ -221,9 +328,10 @@
                         android:textStyle="bold" />
 
                     <Spinner
-                        android:id="@+id/spinner7"
+                        android:id="@+id/AllCategorySet"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
+                        android:layout_marginRight="10dp"
                         android:layout_weight="1" />
                 </LinearLayout>
 
@@ -233,25 +341,28 @@
                     android:layout_height="150dp"
                     android:layout_marginBottom="5dp"
                     android:layout_marginTop="5dp"
-                    android:orientation="horizontal">
+                    android:orientation="vertical">
 
                     <TextView
 
-                        android:layout_width="200dp"
-                        android:layout_height="wrap_content"
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
                         android:layout_marginLeft="5dp"
                         android:layout_weight="1"
                         android:gravity="left|center"
-                        android:text="Description :"
+                        android:text="Description (Optional)"
                         android:textColor="@android:color/background_dark"
-                        android:textSize="24sp"
-                        android:textStyle="bold" />
+                        android:textSize="18sp"
+                        android:textStyle="bold|italic" />
 
                     <EditText
                         android:id="@+id/editText5"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="10dp"
                         android:layout_weight="1"
+                        android:background="?attr/colorButtonNormal"
                         android:ems="10"
                         android:inputType="textPersonName" />
 
@@ -263,6 +374,7 @@
                     android:layout_height="100dp"
                     android:layout_marginBottom="5dp"
                     android:layout_marginTop="5dp"
+                    android:gravity="center"
                     android:orientation="horizontal">
 
                     <Button

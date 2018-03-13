@@ -8,36 +8,48 @@
         <item>Expense</item>
     </string-array>
 
-    <string name='incomeCategory_prompt'>Choose a Type</string>
-    <string-array name="incomeCategory_array">
-         <item>Loan</item>
-        <item>Salary</item>
-        <item>Sales</item>
-        <item>Savings</item>
-    </string-array>
-
-    <string name='expenseCategory_prompt'>Choose a Type</string>
-    <string-array name="expenseCategory_array">
-        <item>Clothing</item>
-        <item>Communication</item>
-        <item>Education</item>
-        <item>Food</item>
-        <item>Fun</item>
-        <item>Health</item>
-        <item>Holiday</item>
-        <item>Household</item>
-        <item>Payments</item>
-        <item>Transportation</item>
-        <item>Other</item>
-    </string-array>
-
     <string name='time_prompt'>Choose a Type</string>
     <string-array name="time_array">
 
         <item>Daily</item>
+        <item>Weekly</item>
         <item>Monthly</item>
         <item>Yearly</item>
     </string-array>
 
-    <string name='title' id='title'>Add new Expense</string>
+    <string name='day_prompt'>Choose a Type</string>
+    <string-array name="day_array">
+
+        <item>Monday</item>
+        <item>Tuesday</item>
+        <item>Wednesday</item>
+        <item>Thursday</item>
+        <item>Friday</item>
+        <item>Saturday</item>
+        <item>Sunday</item>
+
+    </string-array>
+
+    <string name='month_prompt'>Choose a Type</string>
+    <string-array name="month_array">
+
+        <item>January</item>
+        <item>February</item>
+        <item>March</item>
+        <item>April</item>
+        <item>May</item>
+        <item>June</item>
+        <item>July</item>
+        <item>August</item>
+        <item>September</item>
+        <item>October</item>
+        <item>November</item>
+        <item>December</item>
+
+
+
+
+
+    </string-array>
+
 </resources>

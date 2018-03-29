@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 public class Schema {
 
@@ -168,5 +169,33 @@ public class Schema {
 
         return searchList;
 
+    }
+
+    public String calculateTotalIncome(String start, String end){
+        String data=null;
+        Cursor cursor =db.rawQuery("Select sum(AMOUNT)as Total from Income where DATE between '" + start + "' AND '" + end + "'",null);
+
+        if (cursor.moveToFirst()) {
+            data = Integer.toString(cursor.getInt(cursor.getColumnIndex("Total")));
+        }
+
+        cursor.close();
+        //db.close();
+
+        return data;
+    }
+
+    public String calculateTotalExpense(String start, String end){
+        String data=null;
+        Cursor cursor =db.rawQuery("Select sum(AMOUNT) as TotalExpense, count(AMOUNT) as counter from Expense  where DATE between '" + start + "' AND '" + end + "'",null);
+
+        if (cursor.moveToFirst()) {
+            data = Integer.toString(cursor.getInt(cursor.getColumnIndex("TotalExpense")));
+        }
+
+        cursor.close();
+        db.close();
+
+        return data;
     }
 }

@@ -12,6 +12,9 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+
+
 public class Home extends AppCompatActivity {
 
     DatabaseHelper myDB;
@@ -29,6 +32,7 @@ public class Home extends AppCompatActivity {
 
         onClickButtonNav();
         onClickBack();
+        onDates();
 
 
         TextView tx = (TextView) findViewById(R.id.glance);
@@ -46,6 +50,8 @@ public class Home extends AppCompatActivity {
         font(tx5, "fonts/Arturo-Bold Trial.ttf");
         font(tx6, "fonts/Arturo-Bold Trial.ttf");
         font(tx7, "fonts/Arturo-Bold Trial.ttf");
+
+
 
     }
 
@@ -217,6 +223,26 @@ public class Home extends AppCompatActivity {
         }
 
     }
+
+    public void onDates(){
+                ArrayList<String> dates =new Functions().getDateRange();
+                String start = dates.get(0);
+                String end = dates.get(1);
+                Schema sh = new Schema(getApplicationContext());
+
+                String totalIncome=sh.calculateTotalIncome(start,end);
+                String totalExpense=sh.calculateTotalExpense(start,end);
+
+                TextView income =(TextView)findViewById(R.id.income);
+                income.setText(" : "+totalIncome);
+
+                TextView expense =(TextView)findViewById(R.id.expense);
+                expense.setText(" : "+totalExpense);
+
+                Toast toast = Toast.makeText(getApplicationContext(), start+"------------"+end, Toast.LENGTH_SHORT);
+                toast.show();
+
+            }
 
 }
 

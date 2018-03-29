@@ -8,6 +8,7 @@
         android:title="Add Income"
         android:icon="@drawable/ic_add_box_black_24dp"
         android:onClick="AddIncomeButtonClicked"
+
         />
 
     <item
@@ -15,5 +16,6 @@
         android:title="Add Expense"
         android:icon="@drawable/ic_indeterminate_check_box_black_24dp"
         android:onClick="AddExpenseButtonClicked"
+       
        />
 </menu>

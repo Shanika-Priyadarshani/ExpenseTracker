@@ -7,93 +7,97 @@
     tools:context="com.example.shanika.expensetracker.Categories">
 
     <LinearLayout
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_width="465dp"
+        android:layout_height="599dp"
         android:orientation="vertical"
+        app:layout_constraintTop_toTopOf="parent"
         tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="0dp">
+        tools:layout_editor_absoluteY="22dp">
 
-    <LinearLayout
+        <LinearLayout
 
-        android:id="@+id/topBar"
-        android:layout_width="match_parent"
-        android:layout_height="70dp"
-        android:background="@drawable/gg"
-        android:backgroundTintMode="screen"
-        android:padding="5dp"
-        android:paddingBottom="5dp"
-        android:paddingEnd="5dp"
-        android:paddingLeft="5dp"
-        android:paddingRight="5dp"
-        android:paddingStart="5dp"
-        android:paddingTop="5dp"
-        android:weightSum="1"
-        tools:layout_editor_absoluteX="80dp"
-        tools:layout_editor_absoluteY="0dp">
-
-        <ImageButton
-            android:id="@+id/back"
-            style="@style/Widget.AppCompat.ImageButton"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_gravity="top|left"
-            android:background="@drawable/ic_keyboard_arrow_left_red_900_24dp"
-            android:baselineAlignBottom="false"
-            android:contextClickable="true"
-            android:cropToPadding="false"
-            android:elevation="0dp"
-            android:scaleType="centerCrop"
-            app:srcCompat="@drawable/ic_keyboard_arrow_left_red_900_24dp" />
-
-        <TextView
-
-            android:id="@+id/glance"
+            android:id="@+id/topBar"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_gravity="top|center"
-            android:layout_marginBottom="0dp"
-            android:layout_marginLeft="50dp"
-            android:layout_marginRight="60dp"
-            android:layout_marginTop="5dp"
-            android:gravity="center"
-            android:text="Categories"
-            android:textColor="#0c2cbb"
-            android:textColorLink="@android:color/holo_orange_dark"
-            android:textDirection="firstStrongRtl"
-            android:textSize="28sp"
-            android:textStyle="bold" />
+            android:layout_height="60dp"
+            android:background="@drawable/gg"
+            android:backgroundTintMode="screen"
+            android:padding="5dp"
+            android:paddingBottom="5dp"
+            android:paddingEnd="5dp"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:paddingStart="5dp"
+            android:paddingTop="5dp"
+            android:weightSum="1"
+            tools:layout_editor_absoluteX="80dp"
+            tools:layout_editor_absoluteY="0dp">
 
-        <ImageButton
-            android:id="@+id/add"
-            style="@style/Widget.AppCompat.ImageButton"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_gravity="top|right"
-            android:layout_marginLeft="1dp"
-            android:layout_marginRight="0dp"
-            android:adjustViewBounds="true"
-            android:background="@drawable/ic_add_red_900_24dp"
-            android:cropToPadding="true"
-            android:elevation="0dp"
-            android:scaleType="centerCrop"
-            android:visibility="visible" />
+            <ImageButton
+                android:id="@+id/back"
+                style="@style/Widget.AppCompat.ImageButton"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_gravity="top|left"
+                android:background="@drawable/ic_keyboard_arrow_left_red_900_24dp"
+                android:baselineAlignBottom="false"
+                android:contextClickable="true"
+                android:cropToPadding="false"
+                android:elevation="0dp"
+                android:scaleType="centerCrop"
+                app:srcCompat="@drawable/ic_keyboard_arrow_left_red_900_24dp" />
+
+            <TextView
+
+                android:id="@+id/glance"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="top|center"
+                android:layout_marginBottom="0dp"
+                android:layout_marginLeft="50dp"
+                android:layout_marginRight="60dp"
+                android:layout_marginTop="5dp"
+                android:gravity="center"
+                android:text="Categories"
+                android:textColor="#0c2cbb"
+                android:textColorLink="@android:color/holo_orange_dark"
+                android:textDirection="firstStrongRtl"
+                android:textSize="28sp"
+                android:textStyle="bold" />
+
+            <ImageButton
+                android:id="@+id/add"
+                style="@style/Widget.AppCompat.ImageButton"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_gravity="top|right"
+                android:layout_marginLeft="1dp"
+                android:layout_marginRight="50dp"
+                android:adjustViewBounds="true"
+                android:background="@drawable/ic_add_red_900_24dp"
+                android:cropToPadding="true"
+                android:elevation="0dp"
+                android:scaleType="centerCrop"
+                android:visibility="visible" />
 
 
-    </LinearLayout>
+        </LinearLayout>
 
-        <ScrollView
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="536dp"
+            android:orientation="horizontal"
+            android:weightSum="1">
 
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:weightSum="1">
+                android:layout_width="170dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="5dp"
+                android:background="#9b03f560"
+                android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/income"
-                    android:layout_width="match_parent"
+                    android:layout_width="200dp"
                     android:layout_height="60dp"
                     android:background="@drawable/orange"
                     android:ems="10"
@@ -104,13 +108,22 @@
                     android:textSize="24sp"
                     android:textStyle="bold" />
 
-                <CheckBox
-                    android:id="@+id/cat1"
+                <ListView
+                    android:id="@+id/incomeCatList"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Income"
-                    android:textSize="24sp"
-                    android:textStyle="bold" />
+                    android:background="#9b03f560"
+                    android:textAlignment="center" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="170dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="80dp"
+                android:layout_weight="0.20"
+                android:background="#b7fa6e55"
+                android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/expense"
@@ -125,17 +138,16 @@
                     android:textSize="24sp"
                     android:textStyle="bold" />
 
-                <CheckBox
-                    android:id="@+id/catE1"
+                <ListView
+                    android:id="@+id/expenseCatList"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="CheckBox"
-                    android:textSize="24sp"
-                    android:textStyle="bold" />
-
+                    android:layout_height="match_parent"
+                    android:background="#b7fa6e55"
+                    android:textAlignment="center" />
             </LinearLayout>
-            >
-        </ScrollView>
-    </LinearLayout>>
+        </LinearLayout>
+
+    </LinearLayout>
+    >
 
 </android.support.constraint.ConstraintLayout>

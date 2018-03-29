@@ -5,7 +5,11 @@ import android.media.Image;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
+import android.widget.ListView;
+
+import java.util.ArrayList;
 
 public class Categories extends AppCompatActivity {
 
@@ -16,6 +20,7 @@ public class Categories extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_categories);
+        display();
         onClickBack();
         onClickAdd();
     }
@@ -60,6 +65,26 @@ public class Categories extends AppCompatActivity {
 
         );
 
+
+    }
+
+    public void display(){
+
+        Schema sh = new Schema(getApplicationContext());
+        ArrayList<ArrayList<String>> sets =sh.getCategoryList();
+        ArrayList<String> incomeSet =sets.get(0);
+        ArrayList<String> expenseSet =sets.get(1);
+        ListView incomeItemList = (ListView)findViewById(R.id.incomeCatList);
+        ListView expenseItemList = (ListView)findViewById(R.id.expenseCatList);
+
+
+
+        ArrayAdapter<String> incomeAdapter = new ArrayAdapter<String>(getApplicationContext(),android.R.layout.simple_list_item_1,incomeSet);
+        System.out.println(incomeSet);
+        System.out.println(expenseSet);
+        incomeItemList.setAdapter(incomeAdapter);
+        ArrayAdapter<String> expenseAdapter = new ArrayAdapter<String>(getApplicationContext(),android.R.layout.simple_list_item_1,expenseSet);
+        expenseItemList.setAdapter(expenseAdapter);
 
     }
 }

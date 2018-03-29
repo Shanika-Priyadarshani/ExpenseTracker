@@ -34,6 +34,4 @@ public class Functions {
         date = "" + mYear + "-" +mn+ mMonth + "-" +dy+ mDay + "";
         return date;
     }
-
-
 }

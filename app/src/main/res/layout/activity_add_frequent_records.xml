@@ -18,7 +18,7 @@
 
             android:id="@+id/topBar"
             android:layout_width="match_parent"
-            android:layout_height="70dp"
+            android:layout_height="60dp"
             android:layout_marginTop="0dp"
             android:background="@drawable/gg"
             android:backgroundTintMode="screen"

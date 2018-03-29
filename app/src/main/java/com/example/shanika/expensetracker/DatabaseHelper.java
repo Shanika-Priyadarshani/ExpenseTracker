@@ -178,17 +178,5 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
     }
 
- /*   public ArrayList<String> getIncomeMenuList(){
-        SQLiteDatabase db = this.getWritableDatabase();
-        Cursor cursor = db.rawQuery("Select cat_name from Income where Type='Income'",null);
-        if(cursor.moveToFirst()){
-            do{
-                String data=cursor.getString(cursor.getColumnIndex("cat_name"));
-                incomeSet.add(data);
-            }while(cursor.moveToNext());
-        }
-        cursor.close();
-        return incomeSet ;
-    }*/
 
 }

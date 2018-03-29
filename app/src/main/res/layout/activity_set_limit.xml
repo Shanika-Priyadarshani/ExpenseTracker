@@ -10,14 +10,14 @@
         android:layout_width="0dp"
         android:layout_height="506dp"
         android:orientation="vertical"
-        tools:layout_editor_absoluteX="2dp"
-        tools:layout_editor_absoluteY="-3dp">
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="-6dp">
 
         <LinearLayout
 
             android:id="@+id/topBar"
             android:layout_width="match_parent"
-            android:layout_height="70dp"
+            android:layout_height="60dp"
             android:background="@drawable/gg"
             android:backgroundTintMode="screen"
             android:padding="5dp"
@@ -68,7 +68,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="100dp"
+            android:layout_height="80dp"
             android:orientation="horizontal">
 
             <TextView
@@ -78,9 +78,9 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="Set a  Limit to your monthly Expenditure"
-                android:textColor="@color/colorPrimaryDark"
+                android:textColor="@android:color/black"
                 android:textSize="24sp"
-                android:textStyle="bold|italic" />
+                android:textStyle="bold" />
         </LinearLayout>
 
         <LinearLayout
@@ -94,8 +94,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:text="Limit Amount :"
-                android:textColor="#701d1d"
-                android:textSize="30sp"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="26sp"
                 android:textStyle="bold" />
 
             <LinearLayout
@@ -128,27 +128,36 @@
         <LinearLayout
             android:id="@+id/bottonArea"
             android:layout_width="match_parent"
-            android:layout_height="150dp"
+            android:layout_height="100dp"
             android:gravity="center"
             android:orientation="horizontal"
             android:weightSum="1">
 
-            <ImageButton
-                android:id="@+id/done"
-                android:layout_width="69dp"
-                android:layout_height="86dp"
-                android:layout_weight="0.30"
-                android:background="@drawable/done"
-                app:srcCompat="@drawable/done" />
+            <Button
+                android:id="@+id/doneLimitBtn"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_weight="0.19"
+                android:background="#2d9ae8"
+                android:text="DONE"
+                android:textSize="18sp"
+                android:textStyle="bold" />
 
-            <ImageButton
-                android:id="@+id/cancel"
-                android:layout_width="74dp"
-                android:layout_height="96dp"
-                android:layout_marginLeft="20dp"
-                android:layout_weight="0.24"
-                android:background="@drawable/cancel"
-                app:srcCompat="@drawable/cancel" />
+            <Button
+                android:id="@+id/limitCancelBtn"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_weight="1"
+                android:background="@android:color/holo_red_light"
+                android:text="CANCEL"
+                android:textSize="18sp"
+                android:textStyle="bold" />
         </LinearLayout>
 
     </LinearLayout>

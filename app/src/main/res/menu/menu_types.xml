@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/all"
+        android:title="All Categories"
+        android:icon="@drawable/ic_arrow_drop_down_red_900_24dp"
+
+        />
+
+    <item
+        android:id="@+id/income"
+        android:title="Income"
+        android:icon="@drawable/ic_arrow_drop_down_red_900_24dp"
+        />
+
+    <item
+        android:id="@+id/expense"
+        android:title="Expense"
+        android:icon="@drawable/ic_arrow_drop_down_red_900_24dp"
+        />
+
+
+</menu>

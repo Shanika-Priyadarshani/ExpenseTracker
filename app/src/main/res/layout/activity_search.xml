@@ -19,7 +19,7 @@
 
             android:id="@+id/topBar"
             android:layout_width="match_parent"
-            android:layout_height="70dp"
+            android:layout_height="60dp"
             android:background="@drawable/gg"
             android:backgroundTintMode="screen"
             android:weightSum="1"
@@ -61,7 +61,7 @@
                 android:translationY="-5dp" />
 
             <ImageButton
-                android:id="@+id/menu"
+                android:id="@+id/searchCatMenu"
                 style="@style/Widget.AppCompat.ImageButton"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
@@ -73,6 +73,7 @@
                 android:background="@drawable/ic_assignment_red_900_24dp"
                 android:cropToPadding="true"
                 android:elevation="0dp"
+                android:onClick="onSearchMenuClicked"
                 android:scaleType="centerCrop"
                 android:visibility="visible" />
 

@@ -10,7 +10,7 @@
 
             android:id="@+id/topBar"
             android:layout_width="match_parent"
-            android:layout_height="70dp"
+            android:layout_height="60dp"
             android:background="@drawable/gg"
             android:backgroundTintMode="screen"
             android:weightSum="1"
@@ -29,8 +29,7 @@
                 android:cropToPadding="false"
                 android:elevation="0dp"
                 android:scaleType="centerCrop"
-                android:translationY="8dp"
-               />
+                android:translationY="8dp" />
 
             <TextView
 
@@ -42,6 +41,7 @@
                 android:layout_marginLeft="50dp"
                 android:layout_marginRight="60dp"
                 android:layout_marginTop="5dp"
+                android:layout_weight="0.23"
                 android:gravity="center"
                 android:text="Calculator"
                 android:textColor="#0c2cbb"
@@ -49,8 +49,7 @@
                 android:textDirection="firstStrongRtl"
                 android:textSize="28sp"
                 android:textStyle="bold"
-                android:translationY="-5dp"
-                android:layout_weight="0.23" />
+                android:translationY="-5dp" />
 
 
         </LinearLayout>

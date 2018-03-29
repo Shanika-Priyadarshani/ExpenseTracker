@@ -7,12 +7,17 @@ import android.os.Build;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.view.menu.MenuAdapter;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,10 +31,14 @@ public class Search extends AppCompatActivity {
     private TextView endDateView;
     private ImageButton endDateBtn;
 
+    private String type;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
+        type = "All Categories";
         onClickBack();
         onEndDateButtonClicked();
         onStartDateButtonClicked();
@@ -89,19 +98,19 @@ public class Search extends AppCompatActivity {
                             @Override
                             public void onDateSet(DatePicker view, int year,
                                                   int monthOfYear, int dayOfMonth) {
-                                String mn ="";
-                                String dy ="";
+                                String mn = "";
+                                String dy = "";
 
-                                if(String.valueOf(dayOfMonth).length()==1){
-                                    dy ="0";
+                                if (String.valueOf(dayOfMonth).length() == 1) {
+                                    dy = "0";
                                 }
 
-                                if(String.valueOf(monthOfYear).length()==1){
-                                    mn ="0";
+                                if (String.valueOf(monthOfYear).length() == 1) {
+                                    mn = "0";
                                 }
 
-                                startDateView.setText( year+ "-"
-                                        +mn  + (monthOfYear + 1) + "-" + dy+dayOfMonth);
+                                startDateView.setText(year + "-"
+                                        + mn + (monthOfYear + 1) + "-" + dy + dayOfMonth);
                             }
                         }, mYear, mMonth, mDay);
                 datePickerDialog.show();
@@ -136,19 +145,19 @@ public class Search extends AppCompatActivity {
                             @Override
                             public void onDateSet(DatePicker view, int year,
                                                   int monthOfYear, int dayOfMonth) {
-                                String mn ="";
-                                String dy ="";
+                                String mn = "";
+                                String dy = "";
 
-                                if(String.valueOf(dayOfMonth).length()==1){
-                                    dy ="0";
+                                if (String.valueOf(dayOfMonth).length() == 1) {
+                                    dy = "0";
                                 }
 
-                                if(String.valueOf(monthOfYear).length()==1){
-                                    mn ="0";
+                                if (String.valueOf(monthOfYear).length() == 1) {
+                                    mn = "0";
                                 }
 
-                                endDateView.setText( year+ "-"
-                                        +mn  + (monthOfYear + 1) + "-" + dy+dayOfMonth);
+                                endDateView.setText(year + "-"
+                                        + mn + (monthOfYear + 1) + "-" + dy + dayOfMonth);
                             }
                         }, mYear, mMonth, mDay);
                 datePickerDialog.show();
@@ -169,23 +178,89 @@ public class Search extends AppCompatActivity {
             public void onClick(View v) {
                 String stDate = startDateView.getText().toString();
                 String enDate = endDateView.getText().toString();
-                ListView searchItemList = (ListView)findViewById(R.id.searchItemList);
+                ListView searchItemList = (ListView) findViewById(R.id.searchItemList);
                 Schema sh = new Schema(getApplicationContext());
 
-                ArrayList<String> ary = sh.getSearchList(stDate, enDate, "Sales");
+                ArrayList<String> ary = sh.getSearchList(stDate, enDate, type);
 
                 if (ary.isEmpty()) {
 
+                    searchItemList.setAdapter(null);
                     Toast toast = Toast.makeText(getApplicationContext(), "No Records to display", Toast.LENGTH_SHORT);
                     toast.show();
 
                 } else {
-
-                    ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(),android.R.layout.simple_list_item_1,ary);
+                    ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_list_item_1, ary);
                     searchItemList.setAdapter(adapter);
 
                 }
             }
         });
+    }
+
+    public void onSearchMenuClicked(View v) {
+
+        PopupMenu popup = new PopupMenu(this, v);
+        MenuInflater inflater = popup.getMenuInflater();
+        inflater.inflate(R.menu.menu_types, popup.getMenu());
+        popup.show();
+        popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+
+                ImageButton searchCatMenu = (ImageButton) findViewById(R.id.searchCatMenu);
+
+                Schema sh = new Schema(getApplicationContext());
+                ArrayList<ArrayList<String>> sets = sh.getCategoryList();
+                ArrayList<String> incomeSet = sets.get(0);
+                ArrayList<String> expenseSet = sets.get(1);
+
+                if (item.getTitle().equals("Income")) {
+
+                    PopupMenu popupIncome = new PopupMenu(Search.this, searchCatMenu);
+                    popupIncome.getMenu().add("All Incomes");
+                    for (String s : incomeSet) {
+                        popupIncome.getMenu().add(s);
+                    }
+
+                    popupIncome.show();
+
+                    popupIncome.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                        @Override
+                        public boolean onMenuItemClick(MenuItem item) {
+                            type = item.getTitle().toString();
+                            return false;
+                        }
+                    });
+
+                }
+
+                if (item.getTitle().equals("Expense")) {
+                    PopupMenu popupExpense = new PopupMenu(Search.this, searchCatMenu);
+                    popupExpense.getMenu().add("All Expenses");
+
+                    for (String s : expenseSet) {
+                        popupExpense.getMenu().add(s);
+                    }
+                    popupExpense.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                        @Override
+                        public boolean onMenuItemClick(MenuItem item) {
+                            type = item.getTitle().toString();
+                            return false;
+                        }
+                    });
+
+                    popupExpense.show();
+
+                }
+
+                if (item.getTitle().equals("All Categories")) {
+                    type = "All Categories";
+                }
+                return false;
+            }
+        });
+
+
     }
 }

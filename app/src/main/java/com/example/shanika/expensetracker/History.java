@@ -1,5 +1,6 @@
 package com.example.shanika.expensetracker;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
@@ -9,6 +10,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -64,7 +66,7 @@ public class History extends AppCompatActivity {
         ListView history_list = (ListView) findViewById(R.id.history_list);
         Schema sh = new Schema(getApplicationContext());
 
-        ArrayList<String> ary = sh.getHistoryList(type);
+        ArrayList<ArrayList<String>> ary = sh.getHistoryList(type);
         final int size = ary.size();
 
         if (ary.isEmpty()) {
@@ -74,7 +76,63 @@ public class History extends AppCompatActivity {
             toast.show();
 
         } else {
-            ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, ary) {
+            final ArrayList<String> category= ary.get(0);
+            final ArrayList<String> date= ary.get(1);
+            final ArrayList<String> amount= ary.get(2);
+            final ArrayList<String> description= ary.get(3);
+
+            System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+            System.out.println(category);
+            System.out.println(date);
+            System.out.println(amount);
+            System.out.println(description);
+            System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+
+            class CustomAdaptor extends BaseAdapter{
+
+
+                @Override
+                public int getCount() {
+                    return category.size();
+                }
+
+                @Override
+                public Object getItem(int position) {
+                    return null;
+                }
+
+                @Override
+                public long getItemId(int position) {
+                    return 0;
+                }
+
+                @Override
+                public View getView(int position, View view, ViewGroup parent) {
+
+                    view=getLayoutInflater().inflate(R.layout.custom_layout,null);
+                    ImageView lay_image = (ImageView)view.findViewById(R.id.lay_image);
+                    TextView lay_cat_name =(TextView)view. findViewById(R.id.lay_cat_name);
+                    TextView lay_date =(TextView)view. findViewById(R.id.lay_date);
+                    TextView lay_amount =(TextView)view. findViewById(R.id.lay_amount);
+                    TextView lay_description =(TextView)view. findViewById(R.id.lay_description);
+
+                    Context context = lay_image.getContext();
+                    int id = context.getResources().getIdentifier(category.get(position).toLowerCase(),"drawable",context.getPackageName());
+                    lay_image.setImageResource(id);
+                    lay_cat_name.setText(category.get(position));
+                    lay_date.setText(date.get(position));
+                    lay_amount.setText("Rs. "+amount.get(position));
+                    lay_description.setText(description.get(position));
+
+                    return view;
+                }
+            }
+
+
+            CustomAdaptor customAdaptor =new CustomAdaptor();
+            history_list.setAdapter(customAdaptor);
+
+            /*ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, ary) {
                 @Override
                 public View getView(int position, View convertView, ViewGroup parent) {
                     View view = super.getView(position, convertView, parent);
@@ -86,11 +144,12 @@ public class History extends AppCompatActivity {
                 }
 
             };
-            history_list.setAdapter(adapter);
+            history_list.setAdapter(adapter);*/
 
 
         }
     }
+
 
     public void onHistoryMenuClicked(View v) {
         PopupMenu popup = new PopupMenu(this, v);

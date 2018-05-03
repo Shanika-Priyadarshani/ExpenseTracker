@@ -1,6 +1,7 @@
 package com.example.shanika.expensetracker;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.support.design.widget.NavigationView;
 import android.support.v7.app.AppCompatActivity;
@@ -12,6 +13,12 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.github.mikephil.charting.charts.PieChart;
+import com.github.mikephil.charting.data.PieData;
+import com.github.mikephil.charting.data.PieDataSet;
+import com.github.mikephil.charting.data.PieEntry;
+import com.github.mikephil.charting.utils.ColorTemplate;
+
 import java.util.ArrayList;
 
 
@@ -22,6 +29,7 @@ public class Home extends AppCompatActivity {
     private ImageButton btn_nav;
     private ImageButton back;
     private NavigationView navigation;
+    private PieChart pieChart;
 
 
     @Override
@@ -29,6 +37,7 @@ public class Home extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         myDB = new DatabaseHelper(this);
+        displayGraph();
 
         onClickButtonNav();
         onClickBack();
@@ -209,11 +218,14 @@ public class Home extends AppCompatActivity {
 
     }
 
-    int backCount=0;
+   // int backCount=0;
     @Override
     public void onBackPressed(){
+        //R.id.TXT_EXIT:
+        CustomDialogClass cdd = new CustomDialogClass(this);
+        cdd.show();
 
-        if (backCount==0){
+       /* if (backCount==0){
             Toast toast = Toast.makeText(this.getApplicationContext(), "Press Back again to exit.", Toast.LENGTH_SHORT);
             toast.show();
             backCount+=1;
@@ -221,7 +233,7 @@ public class Home extends AppCompatActivity {
         else{
             finish();
         }
-
+*/
     }
 
     public void onDates(){
@@ -234,15 +246,48 @@ public class Home extends AppCompatActivity {
                 String totalExpense=sh.calculateTotalExpense(start,end);
 
                 TextView income =(TextView)findViewById(R.id.income);
-                income.setText(" : "+totalIncome);
+                income.setText(String.format(" : Rs. %s", totalIncome));
 
                 TextView expense =(TextView)findViewById(R.id.expense);
-                expense.setText(" : "+totalExpense);
+                expense.setText(String.format(" : Rs. %s", totalExpense));
 
-                Toast toast = Toast.makeText(getApplicationContext(), start+"------------"+end, Toast.LENGTH_SHORT);
-                toast.show();
 
             }
+    public void displayGraph(){
+        pieChart = (PieChart)findViewById(R.id.piechart);
+        pieChart.setUsePercentValues(true);
+        pieChart.setExtraOffsets(5,10,5,5);
+        pieChart.setDragDecelerationFrictionCoef(0.95f);
+        pieChart.setDrawHoleEnabled(true);
+        pieChart.setHoleColor(Color.WHITE);
+        pieChart.setTransparentCircleRadius(61f);
+
+        ArrayList<PieEntry> yValues =new ArrayList<>();
+
+        Schema sh=new Schema(getApplicationContext());
+        ArrayList<String> dates =new Functions().getDateRange();
+        String start = dates.get(0);
+        String end = dates.get(1);
+        ArrayList<ArrayList<String>> dataForGraph = sh.graphData(start,end);
+        ArrayList<String> categories = dataForGraph.get(0);
+        ArrayList<String> totals = dataForGraph.get(1);
+
+        for (String s:categories){
+            yValues.add(new PieEntry(Float.parseFloat(totals.get(categories.indexOf(s))),s));
+        }
+
+        PieDataSet dataSet = new PieDataSet(yValues,"Expenses");
+        dataSet.setSliceSpace(3f);
+        dataSet.setSelectionShift(5f);
+        dataSet.setColors(ColorTemplate.MATERIAL_COLORS);
+
+        PieData data = new PieData((dataSet));
+        data.setValueTextSize(10f);
+        data.setValueTextColor(Color.YELLOW);
+
+        pieChart.setData(data);
+
+    }
 
 }
 

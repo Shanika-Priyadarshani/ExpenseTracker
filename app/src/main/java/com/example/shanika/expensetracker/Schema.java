@@ -123,8 +123,13 @@ public class Schema {
 
 
 
-    public ArrayList<String> getHistoryList(String type) {
-        searchList = new ArrayList<>();
+    public ArrayList<ArrayList<String>> getHistoryList(String type) {
+        ArrayList<String> category= new ArrayList<>();
+        ArrayList<String> date= new ArrayList<>();
+        ArrayList<String> amount= new ArrayList<>();
+        ArrayList<String> description= new ArrayList<>();
+        ArrayList<ArrayList<String>> historyList = new  ArrayList<>();
+
         Cursor additional;
         Cursor cursor;
 
@@ -154,20 +159,21 @@ public class Schema {
         }
 
         while (cursor.moveToNext()) {
-            StringBuffer buffer = new StringBuffer();
+            category.add(cursor.getString(cursor.getColumnIndex("CATEGORY")));
+            date.add(cursor.getString(cursor.getColumnIndex("DATE")));
+            amount.add( cursor.getString(cursor.getColumnIndex("AMOUNT")));
+            description.add( cursor.getString(cursor.getColumnIndex("DESCRIPTION")));
 
-            buffer.append("Category : " + cursor.getString(cursor.getColumnIndex("CATEGORY")) + "\n");
-            buffer.append("Date : " + cursor.getString(cursor.getColumnIndex("DATE")) + "\n");
-            buffer.append("Amount : " + cursor.getString(cursor.getColumnIndex("AMOUNT")) + "\n");
-            buffer.append("Description : " + cursor.getString(cursor.getColumnIndex("DESCRIPTION")) + "\n\n");
-
-            searchList.add(buffer.toString());
         }
 
+        historyList.add(category);
+        historyList.add(date);
+        historyList.add(amount);
+        historyList.add(description);
         cursor.close();
         db.close();
 
-        return searchList;
+        return historyList;
 
     }
 
@@ -197,5 +203,24 @@ public class Schema {
         db.close();
 
         return data;
+    }
+
+    public ArrayList<ArrayList<String>> graphData(String start, String end){
+        ArrayList<ArrayList<String>> dataForGraph = new ArrayList<>();
+        ArrayList<String> totals=new ArrayList<>();
+        ArrayList<String>  categories = new ArrayList<>();
+
+        Cursor cursor =db.rawQuery("Select sum(AMOUNT) as TotalExpense, CATEGORY from Expense  where DATE between '" + start + "' AND '" + end + "' Group By CATEGORY",null);
+
+        while (cursor.moveToNext()) {
+
+            categories.add(cursor.getString(cursor.getColumnIndex("CATEGORY")));
+            totals.add(cursor.getString(cursor.getColumnIndex("TotalExpense")));
+        }
+        cursor.close();
+        db.close();
+        dataForGraph.add(categories);
+        dataForGraph.add(totals);
+        return dataForGraph ;
     }
 }

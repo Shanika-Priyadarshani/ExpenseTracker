@@ -107,7 +107,7 @@
             android:id="@+id/history_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@android:color/holo_blue_light"
+            android:background="@android:color/darker_gray"
             android:textAlignment="center"
             android:textDirection="firstStrong" />
 

@@ -2,4 +2,5 @@
 <resources>
     <item name="add_income" type="id">add_income</item>
     <item name="add_expense" type="id">add_expense</item>
+    <item name="TXT_EXIT" type="id" />
 </resources>

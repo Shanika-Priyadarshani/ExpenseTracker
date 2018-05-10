@@ -1,21 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
 
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    >
 
     <item
         android:id="@+id/income"
-        android:title="Add Income"
+        android:background="#2d9ae8"
         android:icon="@drawable/ic_add_box_black_24dp"
         android:onClick="AddIncomeButtonClicked"
+        android:textColor="#356dfb"
+        android:title="Add Income"
 
         />
 
     <item
         android:id="@+id/expense"
-        android:title="Add Expense"
+        android:background="@android:color/holo_red_light"
         android:icon="@drawable/ic_indeterminate_check_box_black_24dp"
         android:onClick="AddExpenseButtonClicked"
-       
+        android:textColor="@android:color/holo_red_light"
+        android:title="Add Expense"
        />
 </menu>

@@ -2,14 +2,12 @@ package com.example.shanika.expensetracker;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -18,9 +16,8 @@ import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
-
-import static com.example.shanika.expensetracker.R.drawable.plus;
 
 
 public class History extends AppCompatActivity {
@@ -62,15 +59,11 @@ public class History extends AppCompatActivity {
     public void displayHistory(String type) {
         TextView title = (TextView) findViewById(R.id.title);
         title.setText(type);
-
         ListView history_list = (ListView) findViewById(R.id.history_list);
         Schema sh = new Schema(getApplicationContext());
-
         ArrayList<ArrayList<String>> ary = sh.getHistoryList(type);
         final int size = ary.size();
-
-        if (ary.isEmpty()) {
-
+        if (ary.get(1).isEmpty() || size == 0) {
             history_list.setAdapter(null);
             Toast toast = Toast.makeText(getApplicationContext(), "No Records to display", Toast.LENGTH_SHORT);
             toast.show();
@@ -80,13 +73,6 @@ public class History extends AppCompatActivity {
             final ArrayList<String> date= ary.get(1);
             final ArrayList<String> amount= ary.get(2);
             final ArrayList<String> description= ary.get(3);
-
-            System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
-            System.out.println(category);
-            System.out.println(date);
-            System.out.println(amount);
-            System.out.println(description);
-            System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
 
             class CustomAdaptor extends BaseAdapter{
 
@@ -110,14 +96,28 @@ public class History extends AppCompatActivity {
                 public View getView(int position, View view, ViewGroup parent) {
 
                     view=getLayoutInflater().inflate(R.layout.custom_layout,null);
-                    ImageView lay_image = (ImageView)view.findViewById(R.id.lay_image);
+                    ImageView lay_image = (ImageView) view.findViewById(R.id.lay_cat_image);
                     TextView lay_cat_name =(TextView)view. findViewById(R.id.lay_cat_name);
                     TextView lay_date =(TextView)view. findViewById(R.id.lay_date);
                     TextView lay_amount =(TextView)view. findViewById(R.id.lay_amount);
                     TextView lay_description =(TextView)view. findViewById(R.id.lay_description);
 
                     Context context = lay_image.getContext();
-                    int id = context.getResources().getIdentifier(category.get(position).toLowerCase(),"drawable",context.getPackageName());
+                    Field[] fields = R.drawable.class.getFields();
+                    String imageName = category.get(position).toLowerCase();
+                    int id = 0;
+                    Boolean found = false;
+                    for (Field field : fields) {
+                        if (field.getName().equals(imageName)) {
+                            id = context.getResources().getIdentifier(imageName, "drawable", context.getPackageName());
+                            found = true;
+                            break;
+                        }
+                    }
+                    if (!found) {
+                        imageName = Character.toString(category.get(position).toLowerCase().charAt(0));
+                        id = context.getResources().getIdentifier(imageName, "drawable", context.getPackageName());
+                    }
                     lay_image.setImageResource(id);
                     lay_cat_name.setText(category.get(position));
                     lay_date.setText(date.get(position));

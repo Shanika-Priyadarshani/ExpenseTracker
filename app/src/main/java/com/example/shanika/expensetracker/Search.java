@@ -2,25 +2,26 @@ package com.example.shanika.expensetracker;
 
 import android.annotation.TargetApi;
 import android.app.DatePickerDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.view.menu.MenuAdapter;
-import android.view.Menu;
+import android.support.v7.app.AppCompatActivity;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ArrayAdapter;
+import android.view.ViewGroup;
+import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -181,17 +182,77 @@ public class Search extends AppCompatActivity {
                 ListView searchItemList = (ListView) findViewById(R.id.searchItemList);
                 Schema sh = new Schema(getApplicationContext());
 
-                ArrayList<String> ary = sh.getSearchList(stDate, enDate, type);
-
-                if (ary.isEmpty()) {
+                ArrayList<ArrayList<String>> ary = sh.getSearchList(stDate, enDate, type);
+                final int size = ary.size();
+                if (ary.get(1).isEmpty() || size == 0) {
 
                     searchItemList.setAdapter(null);
                     Toast toast = Toast.makeText(getApplicationContext(), "No Records to display", Toast.LENGTH_SHORT);
                     toast.show();
 
                 } else {
-                    ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_list_item_1, ary);
-                    searchItemList.setAdapter(adapter);
+                    final ArrayList<String> category = ary.get(0);
+                    final ArrayList<String> date = ary.get(1);
+                    final ArrayList<String> amount = ary.get(2);
+                    final ArrayList<String> description = ary.get(3);
+
+                    class CustomAdaptor extends BaseAdapter {
+
+
+                        @Override
+                        public int getCount() {
+                            return category.size();
+                        }
+
+                        @Override
+                        public Object getItem(int position) {
+                            return null;
+                        }
+
+                        @Override
+                        public long getItemId(int position) {
+                            return 0;
+                        }
+
+                        @Override
+                        public View getView(int position, View view, ViewGroup parent) {
+
+                            view = getLayoutInflater().inflate(R.layout.custom_layout, null);
+                            ImageView lay_image = (ImageView) view.findViewById(R.id.lay_cat_image);
+                            TextView lay_cat_name = (TextView) view.findViewById(R.id.lay_cat_name);
+                            TextView lay_date = (TextView) view.findViewById(R.id.lay_date);
+                            TextView lay_amount = (TextView) view.findViewById(R.id.lay_amount);
+                            TextView lay_description = (TextView) view.findViewById(R.id.lay_description);
+
+                            Context context = lay_image.getContext();
+                            Field[] fields = R.drawable.class.getFields();
+                            String imageName = category.get(position).toLowerCase();
+                            int id = 0;
+                            Boolean found = false;
+                            for (Field field : fields) {
+                                if (field.getName().equals(imageName)) {
+                                    id = context.getResources().getIdentifier(imageName, "drawable", context.getPackageName());
+                                    found = true;
+                                    break;
+                                }
+                            }
+                            if (!found) {
+                                imageName = Character.toString(category.get(position).toLowerCase().charAt(0));
+                                id = context.getResources().getIdentifier(imageName, "drawable", context.getPackageName());
+                            }
+                            lay_image.setImageResource(id);
+                            lay_cat_name.setText(category.get(position));
+                            lay_date.setText(date.get(position));
+                            lay_amount.setText("Rs. " + amount.get(position));
+                            lay_description.setText(description.get(position));
+
+                            return view;
+                        }
+                    }
+
+
+                    CustomAdaptor customAdaptor = new CustomAdaptor();
+                    searchItemList.setAdapter(customAdaptor);
 
                 }
             }

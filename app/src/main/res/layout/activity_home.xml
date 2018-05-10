@@ -10,232 +10,6 @@
     tools:context="com.example.shanika.expensetracker.Home">
 
 
-    <ScrollView
-
-        android:id="@+id/scrollView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="60dp">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-
-            <Spinner
-                android:id="@+id/spinner"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:visibility="gone" />
-
-            <LinearLayout
-                android:id="@+id/desc"
-                android:layout_width="385dp"
-                android:layout_height="224dp"
-                android:layout_marginTop="0dp"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/overall"
-                    android:layout_width="360dp"
-                    android:layout_height="60dp"
-                    android:background="@color/primary_material_light_1"
-                    android:ems="10"
-                    android:gravity="center"
-                    android:inputType="textMultiLine"
-                    android:text="Overall description for month September"
-                    android:textColor="@android:color/background_dark"
-                    android:textSize="24sp"
-                    android:textStyle="bold" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:orientation="horizontal"
-                    android:weightSum="1">
-
-                    <TextView
-                        android:id="@+id/in"
-                        android:layout_width="200dp"
-                        android:layout_height="40dp"
-                        android:ems="10"
-                        android:gravity="left|center"
-                        android:inputType="textPersonName"
-                        android:text=" Total Income"
-                        android:textAlignment="gravity"
-                        android:textAllCaps="false"
-                        android:textColor="@android:color/background_dark"
-                        android:textSize="16sp" />
-
-                    <TextView
-                        android:id="@+id/income"
-                        android:layout_width="match_parent"
-                        android:layout_height="40dp"
-                        android:layout_marginBottom="2dp"
-                        android:layout_marginLeft="2dp"
-                        android:layout_marginRight="30dp"
-                        android:layout_marginTop="2dp"
-                        android:layout_weight="1"
-                        android:background="#cec3c3"
-                        android:ems="10"
-                        android:gravity="left|center"
-                        android:inputType="textPersonName"
-                        android:text=" :"
-                        android:textColor="@android:color/background_dark"
-                        android:textSize="20sp"
-                        android:textStyle="bold" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:orientation="horizontal"
-                    android:weightSum="1">
-
-                    <TextView
-                        android:id="@+id/re"
-                        android:layout_width="200dp"
-                        android:layout_height="40dp"
-                        android:ems="10"
-                        android:gravity="left|center"
-                        android:inputType="textPersonName"
-                        android:text=" Remaining Amount"
-                        android:textAlignment="gravity"
-                        android:textAllCaps="false"
-                        android:textColor="@android:color/background_dark"
-                        android:textSize="16sp" />
-
-                    <TextView
-                        android:id="@+id/remaining"
-                        android:layout_width="match_parent"
-                        android:layout_height="40dp"
-                        android:layout_marginBottom="2dp"
-                        android:layout_marginLeft="2dp"
-                        android:layout_marginRight="30dp"
-                        android:layout_marginTop="2dp"
-                        android:layout_weight="0.00"
-                        android:background="#cec3c3"
-                        android:ems="10"
-                        android:gravity="left|center"
-                        android:inputType="textPersonName"
-                        android:text=" :"
-                        android:textColor="@android:color/background_dark"
-                        android:textSize="20sp"
-                        android:textStyle="bold" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:orientation="horizontal"
-                    android:weightSum="1">
-
-                    <TextView
-                        android:id="@+id/ex"
-                        android:layout_width="200dp"
-                        android:layout_height="40dp"
-                        android:ems="10"
-                        android:gravity="left|center"
-                        android:inputType="textPersonName"
-                        android:text=" Total Expense"
-                        android:textAlignment="gravity"
-                        android:textAllCaps="false"
-                        android:textColor="@android:color/background_dark"
-                        android:textSize="16sp" />
-
-                    <TextView
-                        android:id="@+id/expense"
-                        android:layout_width="match_parent"
-                        android:layout_height="40dp"
-                        android:layout_marginBottom="2dp"
-                        android:layout_marginLeft="2dp"
-                        android:layout_marginRight="30dp"
-                        android:layout_marginTop="2dp"
-                        android:background="#cec3c3"
-                        android:ems="10"
-                        android:gravity="left|center"
-                        android:inputType="textPersonName"
-                        android:text=" :"
-                        android:textColor="@android:color/background_dark"
-                        android:textSize="20sp"
-                        android:textStyle="bold" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:orientation="horizontal"
-                    android:weightSum="1">
-
-                    <TextView
-                        android:id="@+id/bal"
-                        android:layout_width="200dp"
-                        android:layout_height="40dp"
-                        android:ems="10"
-                        android:gravity="left|center"
-                        android:inputType="textPersonName"
-                        android:text=" Balance"
-                        android:textAlignment="gravity"
-                        android:textAllCaps="false"
-                        android:textColor="@android:color/background_dark"
-                        android:textSize="16sp" />
-
-                    <TextView
-                        android:id="@+id/balance"
-                        android:layout_width="154dp"
-                        android:layout_height="40dp"
-
-                        android:layout_marginBottom="2dp"
-                        android:layout_marginLeft="2dp"
-                        android:layout_marginRight="30dp"
-                        android:layout_marginTop="2dp"
-                        android:background="#cec3c3"
-                        android:ems="10"
-                        android:gravity="left|center"
-                        android:inputType="textPersonName"
-                        android:text=" :"
-                        android:textColor="@android:color/background_dark"
-                        android:textSize="20sp"
-                        android:textStyle="bold" />
-                </LinearLayout>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/grap"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginBottom="1dp"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/graphTitle"
-                    android:layout_width="360dp"
-                    android:layout_height="60dp"
-                    android:background="@color/primary_material_light_1"
-                    android:ems="10"
-                    android:gravity="center"
-                    android:inputType="textMultiLine"
-                    android:text="Graphical Distribution"
-                    android:textColor="@android:color/background_dark"
-                    android:textSize="24sp"
-                    android:textStyle="bold" />
-
-                <com.github.mikephil.charting.charts.PieChart
-                    android:id="@+id/piechart"
-                    android:layout_width="match_parent"
-                    android:layout_height="450dp"
-                    app:srcCompat="@android:drawable/presence_online">
-
-                </com.github.mikephil.charting.charts.PieChart>
-
-
-            </LinearLayout>
-        </LinearLayout>
-    </ScrollView>
-
     <android.support.design.widget.NavigationView
         android:id="@+id/navigation"
         android:layout_width="wrap_content"
@@ -250,6 +24,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
+        android:background="@color/primary_material_light_1"
         android:visibility="visible"
         app:menu="@menu/navigation_item" />
 
@@ -337,5 +112,234 @@
 
 
     </LinearLayout>
+
+    <ScrollView
+
+        android:id="@+id/scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="60dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+            <Spinner
+                android:id="@+id/spinner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone" />
+
+            <LinearLayout
+                android:id="@+id/desc"
+                android:layout_width="385dp"
+                android:layout_height="224dp"
+                android:layout_marginTop="0dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/overall"
+                    android:layout_width="360dp"
+                    android:layout_height="35dp"
+                    android:layout_marginBottom="5dp"
+                    android:background="@color/primary_material_light_1"
+                    android:ems="10"
+                    android:gravity="center"
+                    android:inputType="textMultiLine"
+                    android:text="This month's overview"
+                    android:textColor="@android:color/background_dark"
+                    android:textSize="22sp"
+                    android:textStyle="bold" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:orientation="horizontal"
+                    android:weightSum="1">
+
+                    <TextView
+                        android:id="@+id/in"
+                        android:layout_width="200dp"
+                        android:layout_height="40dp"
+                        android:ems="10"
+                        android:gravity="left|center"
+                        android:inputType="textPersonName"
+                        android:text=" Total Income"
+                        android:textAlignment="gravity"
+                        android:textAllCaps="false"
+                        android:textColor="@android:color/background_dark"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/home_income"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_marginBottom="2dp"
+                        android:layout_marginLeft="2dp"
+                        android:layout_marginRight="30dp"
+                        android:layout_marginTop="2dp"
+                        android:layout_weight="1"
+                        android:background="#cec3c3"
+                        android:ems="10"
+                        android:gravity="left|center"
+                        android:inputType="textPersonName"
+                        android:text=" :"
+                        android:textColor="@android:color/background_dark"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:orientation="horizontal"
+                    android:weightSum="1">
+
+                    <TextView
+                        android:id="@+id/re"
+                        android:layout_width="200dp"
+                        android:layout_height="40dp"
+                        android:ems="10"
+                        android:gravity="left|center"
+                        android:inputType="textPersonName"
+                        android:text="Previous Savings"
+                        android:textAlignment="gravity"
+                        android:textAllCaps="false"
+                        android:textColor="@android:color/background_dark"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/remaining"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_marginBottom="2dp"
+                        android:layout_marginLeft="2dp"
+                        android:layout_marginRight="30dp"
+                        android:layout_marginTop="2dp"
+                        android:layout_weight="0.00"
+                        android:background="#cec3c3"
+                        android:ems="10"
+                        android:gravity="left|center"
+                        android:inputType="textPersonName"
+                        android:text=" :"
+                        android:textColor="@android:color/background_dark"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:orientation="horizontal"
+                    android:weightSum="1">
+
+                    <TextView
+                        android:id="@+id/ex"
+                        android:layout_width="200dp"
+                        android:layout_height="40dp"
+                        android:ems="10"
+                        android:gravity="left|center"
+                        android:inputType="textPersonName"
+                        android:text=" Total Expense"
+                        android:textAlignment="gravity"
+                        android:textAllCaps="false"
+                        android:textColor="@android:color/background_dark"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/home_expense"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_marginBottom="2dp"
+                        android:layout_marginLeft="2dp"
+                        android:layout_marginRight="30dp"
+                        android:layout_marginTop="2dp"
+                        android:background="#cec3c3"
+                        android:ems="10"
+                        android:gravity="left|center"
+                        android:inputType="textPersonName"
+                        android:text=" :"
+                        android:textColor="@android:color/background_dark"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:orientation="horizontal"
+                    android:weightSum="1">
+
+                    <TextView
+                        android:id="@+id/bal"
+                        android:layout_width="200dp"
+                        android:layout_height="40dp"
+                        android:ems="10"
+                        android:gravity="left|center"
+                        android:inputType="textPersonName"
+                        android:text="This Month's Balance"
+                        android:textAlignment="gravity"
+                        android:textAllCaps="false"
+                        android:textColor="@android:color/background_dark"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/balance"
+                        android:layout_width="154dp"
+                        android:layout_height="40dp"
+
+                        android:layout_marginBottom="2dp"
+                        android:layout_marginLeft="2dp"
+                        android:layout_marginRight="30dp"
+                        android:layout_marginTop="2dp"
+                        android:background="#cec3c3"
+                        android:ems="10"
+                        android:gravity="left|center"
+                        android:inputType="textPersonName"
+                        android:text=" :"
+                        android:textColor="@android:color/background_dark"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/grap"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="1dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/graphTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="Graphical Summery"
+                    android:textColor="#e67214"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <com.github.mikephil.charting.charts.PieChart
+                    android:id="@+id/piechart"
+                    android:layout_width="match_parent"
+                    android:layout_height="390dp"
+                    app:srcCompat="@android:drawable/presence_online">
+
+                </com.github.mikephil.charting.charts.PieChart>
+
+                <TextView
+                    android:id="@+id/textView4"
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp" />
+
+
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
 
 </android.support.design.widget.CoordinatorLayout>

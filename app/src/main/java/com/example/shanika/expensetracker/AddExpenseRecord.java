@@ -3,8 +3,10 @@ package com.example.shanika.expensetracker;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -21,9 +23,9 @@ import java.util.Calendar;
 public class AddExpenseRecord extends AppCompatActivity {
 
 
+    public ImageButton back;
     private ImageButton expenseDateBtn;
     private DatePickerDialog datePickerDialog;
-    public ImageButton back;
     private TextView expenseDateView;
     private TextView expenseAmount;
     private Spinner expenseCategorySet;
@@ -38,6 +40,7 @@ public class AddExpenseRecord extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_expense_record);
+        savingsCalculation();
         onClickBack();
         onExpenseAddButtonClick();
         onExpenseCancelButtonClicked();
@@ -154,6 +157,16 @@ public class AddExpenseRecord extends AppCompatActivity {
                                 toast.show();
                                 expenseAmount.setText("");
                                 expenseDescription.setText("");
+
+                                Warning warning = new Warning(AddExpenseRecord.this);
+                                double valueUptoNow = warning.checkExeeded();
+                                SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+                                double limit = Double.parseDouble(sharedPreferences.getString("limit", "0"));
+                                if (limit != 0 && Double.valueOf(limit).toString() != "") {
+                                    if (valueUptoNow > limit) {
+                                        warning.show();
+                                    }
+                                }
                             } else {
                                 Toast toast = Toast.makeText(context, "Expense Record addition faild. Please try again ", duration);
                                 toast.show();
@@ -180,6 +193,21 @@ public class AddExpenseRecord extends AppCompatActivity {
             }
         });
 
+    }
+
+    public void savingsCalculation() {
+        Suggession suggession = new Suggession(AddExpenseRecord.this);
+        ArrayList<Double> lastMonthIncomeExpence = suggession.checkSavings();
+        double lastMonthIncome = lastMonthIncomeExpence.get(1);
+        double lastMonthExpense = lastMonthIncomeExpence.get(0);
+        double lastMonthSaving = lastMonthIncome - lastMonthExpense;
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        double limit = Double.parseDouble(sharedPreferences.getString("limit", "0"));
+        if (limit != 0 && Double.valueOf(limit).toString() != "") {
+            if (lastMonthExpense < limit && lastMonthSaving > (lastMonthIncome / 4)) {
+                suggession.show();
+            }
+        }
     }
 
 

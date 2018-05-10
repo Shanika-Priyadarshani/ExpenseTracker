@@ -2,9 +2,9 @@ package com.example.shanika.expensetracker;
 
 import android.content.Intent;
 import android.os.Build;
+import android.os.Bundle;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -14,14 +14,15 @@ import android.widget.Toast;
 
 public class Calculator extends AppCompatActivity {
 
+    private static ImageButton back;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        // Thread.setDefaultUncaughtExceptionHandler(new ExceptionHandler(getApplicationContext()));
         setContentView(R.layout.activity_calculator);
+        onClickBack();
 
         final EditText edt1= (EditText) findViewById(R.id.edt1);;
-
-
 
         Button button0, button1, button2, button3, button4, button5, button6,
                 button7, button8, button9, buttonAdd, buttonSub, buttonDivision,
@@ -53,7 +54,7 @@ public class Calculator extends AppCompatActivity {
         buttonC = (Button) findViewById(R.id.buttonC);
         buttonEqual = (Button) findViewById(R.id.buttoneql);
 
-        try {
+
 
             button1.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -213,11 +214,6 @@ public class Calculator extends AppCompatActivity {
             });
 
 
-            } catch (Exception e) {
-            Toast toast = Toast.makeText(getApplicationContext(), "Enter a valid Input", Toast.LENGTH_SHORT);
-             edt1.setText(null);
-             toast.show();
-        }
     }
 
 
@@ -230,7 +226,7 @@ public class Calculator extends AppCompatActivity {
 
     public void onClickBack() {
 
-        ImageButton back = (ImageButton) findViewById(R.id.back);
+        back = (ImageButton) findViewById(R.id.back);
         back.setOnClickListener(
                 new View.OnClickListener() {
                     @Override
@@ -242,6 +238,12 @@ public class Calculator extends AppCompatActivity {
         );
 
 
+    }
+
+    public void displayError(EditText edit1) {
+        Toast toast = Toast.makeText(getApplicationContext(), "Enter a valid Input", Toast.LENGTH_SHORT);
+        edit1.setText(null);
+        toast.show();
     }
 
 

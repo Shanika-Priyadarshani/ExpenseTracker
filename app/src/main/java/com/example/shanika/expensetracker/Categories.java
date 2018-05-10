@@ -1,14 +1,18 @@
 package com.example.shanika.expensetracker;
 
+import android.content.Context;
 import android.content.Intent;
-import android.media.Image;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.ArrayAdapter;
+import android.view.ViewGroup;
+import android.widget.BaseAdapter;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 
 public class Categories extends AppCompatActivity {
@@ -72,19 +76,68 @@ public class Categories extends AppCompatActivity {
 
         Schema sh = new Schema(getApplicationContext());
         ArrayList<ArrayList<String>> sets =sh.getCategoryList();
-        ArrayList<String> incomeSet =sets.get(0);
-        ArrayList<String> expenseSet =sets.get(1);
+        final ArrayList<String> incomeSet = sets.get(0);
+        final ArrayList<String> expenseSet = sets.get(1);
         ListView incomeItemList = (ListView)findViewById(R.id.incomeCatList);
         ListView expenseItemList = (ListView)findViewById(R.id.expenseCatList);
 
+        class CustomAdaptor extends BaseAdapter {
+            ArrayList<String> list;
+
+            public CustomAdaptor(ArrayList<String> list) {
+                this.list = list;
+            }
+
+            @Override
+            public int getCount() {
+                return list.size();
+            }
+
+            @Override
+            public Object getItem(int position) {
+                return null;
+            }
+
+            @Override
+            public long getItemId(int position) {
+                return 0;
+            }
+
+            @Override
+            public View getView(int position, View view, ViewGroup parent) {
+
+                view = getLayoutInflater().inflate(R.layout.category_layout, null);
+                ImageView lay_cat_image = (ImageView) view.findViewById(R.id.lay_cat_image);
+                ;
+                TextView lay_cat_name = (TextView) view.findViewById(R.id.lay_cat_name);
+
+                Context context = lay_cat_image.getContext();
+                Field[] fields = R.drawable.class.getFields();
+                String imageName = list.get(position).toLowerCase();
+                int id = 0;
+                Boolean found = false;
+                for (Field field : fields) {
+                    if (field.getName().equals(imageName)) {
+                        id = context.getResources().getIdentifier(imageName, "drawable", context.getPackageName());
+                        found = true;
+                        break;
+                    }
+                }
+                if (!found) {
+                    imageName = Character.toString(list.get(position).toLowerCase().charAt(0));
+                    id = context.getResources().getIdentifier(imageName, "drawable", context.getPackageName());
+                }
+                lay_cat_image.setImageResource(id);
+                lay_cat_name.setText(list.get(position));
+                return view;
+            }
+        }
 
 
-        ArrayAdapter<String> incomeAdapter = new ArrayAdapter<String>(getApplicationContext(),android.R.layout.simple_list_item_1,incomeSet);
-        System.out.println(incomeSet);
-        System.out.println(expenseSet);
-        incomeItemList.setAdapter(incomeAdapter);
-        ArrayAdapter<String> expenseAdapter = new ArrayAdapter<String>(getApplicationContext(),android.R.layout.simple_list_item_1,expenseSet);
-        expenseItemList.setAdapter(expenseAdapter);
+        CustomAdaptor customAdaptor = new CustomAdaptor(expenseSet);
+        expenseItemList.setAdapter(customAdaptor);
+        CustomAdaptor customAdaptor2 = new CustomAdaptor(incomeSet);
+        incomeItemList.setAdapter(customAdaptor2);
 
     }
 }

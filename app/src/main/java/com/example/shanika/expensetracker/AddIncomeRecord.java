@@ -3,11 +3,8 @@ package com.example.shanika.expensetracker;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
-
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -24,10 +21,10 @@ public class AddIncomeRecord extends AppCompatActivity {
 
     //declare all the variables within the class
 
+    public ImageButton back;
     private TextView dateview;
     private ImageButton dateBtn;
     private DatePickerDialog datePickerDialog;
-    public ImageButton back;
     private TextView dateView;
     private TextView incomeAmount;
     private Spinner IncomecategorySet;
@@ -154,6 +151,7 @@ public class AddIncomeRecord extends AppCompatActivity {
                                 IncomeDescription.setText("");
                                 Toast toast = Toast.makeText(context, "Income Record added successfully", duration);
                                 toast.show();
+
                             } else {
                                 Toast toast = Toast.makeText(context, "Income Record addition faild. Please try again ", duration);
                                 toast.show();

@@ -8,11 +8,10 @@
 
     <LinearLayout
         android:layout_width="465dp"
-        android:layout_height="599dp"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintTop_toTopOf="parent"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="22dp">
+        tools:layout_editor_absoluteX="0dp">
 
         <LinearLayout
 
@@ -84,65 +83,63 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="536dp"
+            android:layout_height="wrap_content"
+            android:background="@color/colorAccent"
             android:orientation="horizontal"
             android:weightSum="1">
 
             <LinearLayout
                 android:layout_width="170dp"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
-                android:background="#9b03f560"
                 android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/income"
                     android:layout_width="200dp"
-                    android:layout_height="60dp"
+                    android:layout_height="40dp"
                     android:background="@drawable/orange"
-                    android:ems="10"
                     android:gravity="center"
                     android:inputType="textMultiLine"
                     android:text="Income"
                     android:textColor="@android:color/background_dark"
-                    android:textSize="24sp"
+                    android:textSize="22sp"
                     android:textStyle="bold" />
 
                 <ListView
                     android:id="@+id/incomeCatList"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="#9b03f560"
+                    android:background="@android:color/holo_red_dark"
                     android:textAlignment="center" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="170dp"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
-                android:layout_marginRight="80dp"
+                android:layout_marginRight="85dp"
                 android:layout_weight="0.20"
-                android:background="#b7fa6e55"
                 android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/expense"
                     android:layout_width="match_parent"
-                    android:layout_height="60dp"
+                    android:layout_height="40dp"
                     android:background="@drawable/orange"
                     android:ems="10"
                     android:gravity="center"
                     android:inputType="textMultiLine"
                     android:text="Expense"
                     android:textColor="@android:color/background_dark"
-                    android:textSize="24sp"
+                    android:textSize="22sp"
                     android:textStyle="bold" />
 
                 <ListView
                     android:id="@+id/expenseCatList"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="#b7fa6e55"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/holo_red_dark"
                     android:textAlignment="center" />
             </LinearLayout>
         </LinearLayout>

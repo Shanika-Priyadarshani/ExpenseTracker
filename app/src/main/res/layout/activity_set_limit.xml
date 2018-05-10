@@ -7,11 +7,11 @@
     tools:context="com.example.shanika.expensetracker.SetLimit">
 
     <LinearLayout
-        android:layout_width="0dp"
-        android:layout_height="506dp"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="-6dp">
+        tools:layout_editor_absoluteX="8dp"
+        tools:layout_editor_absoluteY="8dp">
 
         <LinearLayout
 
@@ -26,7 +26,6 @@
             android:paddingLeft="5dp"
             android:paddingRight="5dp"
             android:paddingStart="5dp"
-            android:paddingTop="5dp"
             android:weightSum="1"
             tools:layout_editor_absoluteX="80dp"
             tools:layout_editor_absoluteY="0dp">

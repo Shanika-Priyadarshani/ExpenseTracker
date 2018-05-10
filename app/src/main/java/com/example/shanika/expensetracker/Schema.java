@@ -6,14 +6,12 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import java.util.ArrayList;
-import java.util.Date;
 
 public class Schema {
 
 
     public ArrayList<String> menuSet;
     SQLiteDatabase db;
-    ArrayList<String> searchList;
 
     public Schema(Context context) {
         DatabaseHelper helper = new DatabaseHelper(context);
@@ -42,8 +40,13 @@ public class Schema {
         return menuSet;
     }
 
-    public ArrayList<String> getSearchList(String start, String end, String type) {
-        searchList = new ArrayList<>();
+    public ArrayList<ArrayList<String>> getSearchList(String start, String end, String type) {
+        ArrayList<ArrayList<String>> searchList = new ArrayList<>();
+        ArrayList<String> category = new ArrayList<>();
+        ArrayList<String> date = new ArrayList<>();
+        ArrayList<String> amount = new ArrayList<>();
+        ArrayList<String> description = new ArrayList<>();
+
         Cursor additional;
         Cursor cursor;
 
@@ -73,19 +76,19 @@ public class Schema {
         }
 
         while (cursor.moveToNext()) {
-            StringBuffer buffer = new StringBuffer();
 
-            buffer.append("Category : " + cursor.getString(cursor.getColumnIndex("CATEGORY")) + "\n");
-            buffer.append("Date : " + cursor.getString(cursor.getColumnIndex("DATE")) + "\n");
-            buffer.append("Amount : " + cursor.getString(cursor.getColumnIndex("AMOUNT")) + "\n");
-            buffer.append("Description : " + cursor.getString(cursor.getColumnIndex("DESCRIPTION")) + "\n\n");
-
-            searchList.add(buffer.toString());
+            category.add(cursor.getString(cursor.getColumnIndex("CATEGORY")));
+            date.add(cursor.getString(cursor.getColumnIndex("DATE")));
+            amount.add(Long.toString(Double.valueOf(cursor.getString(cursor.getColumnIndex("AMOUNT"))).longValue()));
+            description.add(cursor.getString(cursor.getColumnIndex("DESCRIPTION")));
         }
 
+        searchList.add(category);
+        searchList.add(date);
+        searchList.add(amount);
+        searchList.add(description);
         cursor.close();
         db.close();
-
         return searchList;
     }
 
@@ -161,7 +164,7 @@ public class Schema {
         while (cursor.moveToNext()) {
             category.add(cursor.getString(cursor.getColumnIndex("CATEGORY")));
             date.add(cursor.getString(cursor.getColumnIndex("DATE")));
-            amount.add( cursor.getString(cursor.getColumnIndex("AMOUNT")));
+            amount.add(Long.toString(Double.valueOf(cursor.getString(cursor.getColumnIndex("AMOUNT"))).longValue()));
             description.add( cursor.getString(cursor.getColumnIndex("DESCRIPTION")));
 
         }
@@ -179,14 +182,13 @@ public class Schema {
 
     public String calculateTotalIncome(String start, String end){
         String data=null;
-        Cursor cursor =db.rawQuery("Select sum(AMOUNT)as Total from Income where DATE between '" + start + "' AND '" + end + "'",null);
+        Cursor cursor = db.rawQuery("Select sum(AMOUNT)as TotalIncome, count(AMOUNT) as counter from Income where DATE between '" + start + "' AND '" + end + "'", null);
 
         if (cursor.moveToFirst()) {
-            data = Integer.toString(cursor.getInt(cursor.getColumnIndex("Total")));
+            data = Integer.toString(cursor.getInt(cursor.getColumnIndex("TotalIncome")));
         }
 
         cursor.close();
-        //db.close();
 
         return data;
     }
@@ -200,7 +202,7 @@ public class Schema {
         }
 
         cursor.close();
-        db.close();
+        //db.close();
 
         return data;
     }
@@ -215,7 +217,7 @@ public class Schema {
         while (cursor.moveToNext()) {
 
             categories.add(cursor.getString(cursor.getColumnIndex("CATEGORY")));
-            totals.add(cursor.getString(cursor.getColumnIndex("TotalExpense")));
+            totals.add(Long.toString(Double.valueOf(cursor.getString(cursor.getColumnIndex("TotalExpense"))).longValue()));
         }
         cursor.close();
         db.close();

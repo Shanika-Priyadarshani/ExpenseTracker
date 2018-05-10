@@ -1,18 +1,26 @@
-
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context="com.example.shanika.expensetracker.Calculator"
-        android:id="@+id/relative1">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/relative1"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.shanika.expensetracker.Calculator">
 
         <LinearLayout
 
             android:id="@+id/topBar"
             android:layout_width="match_parent"
             android:layout_height="60dp"
+            android:layout_marginTop="0dp"
             android:background="@drawable/gg"
             android:backgroundTintMode="screen"
+            android:padding="5dp"
+            android:paddingBottom="5dp"
+            android:paddingEnd="5dp"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:paddingStart="5dp"
+            android:paddingTop="5dp"
             android:weightSum="1"
             tools:layout_editor_absoluteX="80dp"
             tools:layout_editor_absoluteY="0dp">
@@ -29,29 +37,26 @@
                 android:cropToPadding="false"
                 android:elevation="0dp"
                 android:scaleType="centerCrop"
-                android:translationY="8dp" />
+                app:srcCompat="@drawable/ic_keyboard_arrow_left_red_900_24dp" />
 
             <TextView
 
-                android:id="@+id/glance"
-                android:layout_width="wrap_content"
+                android:id="@+id/addingArea"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_gravity="top|center"
                 android:layout_marginBottom="0dp"
-                android:layout_marginLeft="50dp"
-                android:layout_marginRight="60dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="30dp"
                 android:layout_marginTop="5dp"
-                android:layout_weight="0.23"
-                android:gravity="center"
+                android:gravity="left|center"
                 android:text="Calculator"
                 android:textColor="#0c2cbb"
                 android:textColorLink="@android:color/holo_orange_dark"
                 android:textDirection="firstStrongRtl"
                 android:textSize="28sp"
                 android:textStyle="bold"
-                android:translationY="-5dp" />
-
-
+                android:translationY="-7dp" />
         </LinearLayout>
 
         <EditText

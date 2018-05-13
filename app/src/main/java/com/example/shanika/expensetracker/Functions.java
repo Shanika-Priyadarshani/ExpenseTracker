@@ -1,5 +1,14 @@
 package com.example.shanika.expensetracker;
 
+import android.content.Context;
+import android.graphics.Color;
+
+import com.github.mikephil.charting.charts.PieChart;
+import com.github.mikephil.charting.data.PieData;
+import com.github.mikephil.charting.data.PieDataSet;
+import com.github.mikephil.charting.data.PieEntry;
+import com.github.mikephil.charting.utils.ColorTemplate;
+
 import java.text.DateFormatSymbols;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -163,6 +172,39 @@ public class Functions {
         }
 
         return dates;
+
+    }
+
+    public void displayGraph(String start, String end, PieChart pieChart, Context context) {
+        pieChart.setUsePercentValues(true);
+        pieChart.setExtraOffsets(5, 10, 5, 5);
+        pieChart.setDragDecelerationFrictionCoef(0.95f);
+        pieChart.setDrawHoleEnabled(true);
+        pieChart.setHoleColor(Color.WHITE);
+        pieChart.setTransparentCircleRadius(61f);
+
+        ArrayList<PieEntry> yValues = new ArrayList<>();
+        Schema sh = new Schema(context);
+        ArrayList<ArrayList<String>> dataForGraph = sh.graphData(start, end);
+        ArrayList<String> categories = dataForGraph.get(0);
+        ArrayList<String> totals = dataForGraph.get(1);
+
+        for (String s : categories) {
+            yValues.add(new PieEntry(Float.parseFloat(totals.get(categories.indexOf(s))), s));
+        }
+
+        PieDataSet dataSet = new PieDataSet(yValues, "Expenses");
+        dataSet.setSliceSpace(3f);
+        dataSet.setSelectionShift(5f);
+        dataSet.setColors(ColorTemplate.MATERIAL_COLORS);
+
+        PieData data = new PieData((dataSet));
+        data.setValueTextSize(10f);
+        data.setValueTextColor(Color.BLACK);
+        pieChart.getDescription().setEnabled(false);
+
+        pieChart.setData(data);
+        pieChart.invalidate();
 
     }
 }

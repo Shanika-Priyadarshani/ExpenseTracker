@@ -2,8 +2,8 @@ package com.example.shanika.expensetracker;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -11,32 +11,38 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.w3c.dom.Text;
 
 public class AddCategory extends AppCompatActivity {
 
-    public  ImageButton back;
-    private  Spinner type;
-    private  TextView name;
+    public ImageButton back;
+    private Spinner type;
+    private TextView name;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
+        // Set the layout to the activity
         setContentView(R.layout.activity_add_category);
+        // Make each main function call
         onClickBack();
         onAddButtonClick();
         onCancelCategoryButtonClicked();
+
     }
+
 
     // declaring the function to back button- to go to previous class
     public void onClickBack() {
 
+        //Initialize the Image button in the layout to a variable
         back = (ImageButton) findViewById(R.id.back);
+        // St a listener to catch the event of clicking the button
         back.setOnClickListener(
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                       onBackPressed();
+                        onBackPressed();
                     }
                 }
 
@@ -44,8 +50,11 @@ public class AddCategory extends AppCompatActivity {
 
 
     }
+
+    // overide the function that decides what happen when the back buttton in the physical device pressed
+    // Go to the previous class
     @Override
-    public void onBackPressed(){
+    public void onBackPressed() {
         Intent intent = new Intent(AddCategory.this, Categories.class);
         startActivity(intent);
         finish();
@@ -89,6 +98,7 @@ public class AddCategory extends AppCompatActivity {
                                 }
 
                             } else {
+                                // if the name field is empty, ask the user to re enter the name
                                 Toast toast = Toast.makeText(context, "Enter a name and Retry ", duration);
                                 toast.show();
 
@@ -98,8 +108,8 @@ public class AddCategory extends AppCompatActivity {
                     }
 
             );
-        }
-        catch (Exception e){
+        } catch (Exception e) {
+            // if any exception occured, during the process it will be displayed by a toast message
             Context context = getApplicationContext();
             int duration = Toast.LENGTH_SHORT;
             Toast toast = Toast.makeText(context, "Something went wrong. Please retry!", duration);
@@ -109,10 +119,13 @@ public class AddCategory extends AppCompatActivity {
 
     // declare what happens on cancel button click- goto prevoius activity
     public void onCancelCategoryButtonClicked() {
+        // Initialize the cancel button from the layout to a variable
         Button catgoryCancelBtn = (Button) findViewById(R.id.catgoryCancelBtn);
+        // Set a listner to catch the cancel button click event
         catgoryCancelBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // GO out  from the current activity and go to the previous activity
                 Intent intent = new Intent(AddCategory.this, Categories.class);
                 startActivity(intent);
                 finish();

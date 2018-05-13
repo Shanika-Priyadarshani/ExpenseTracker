@@ -1,10 +1,10 @@
 package com.example.shanika.expensetracker;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
+import android.support.v4.view.GestureDetectorCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.GestureDetector;
 import android.view.Menu;
@@ -17,10 +17,6 @@ import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.PieChart;
-import com.github.mikephil.charting.data.PieData;
-import com.github.mikephil.charting.data.PieDataSet;
-import com.github.mikephil.charting.data.PieEntry;
-import com.github.mikephil.charting.utils.ColorTemplate;
 
 import java.util.ArrayList;
 
@@ -33,12 +29,13 @@ public class Home extends AppCompatActivity {
     private ImageButton back;
     private NavigationView navigation;
     private float x1, x2, y1, y2;
-    private GestureDetector gestureDetector;
+    private GestureDetectorCompat gestureObject;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+        gestureObject = new GestureDetectorCompat(this, new LearnGesture());
        /* ScrollView scrollView= (ScrollView)findViewById(R.id.scrollView);
         scrollView.setOnTouchListener(gestureListner);
         initialize();
@@ -103,14 +100,12 @@ public class Home extends AppCompatActivity {
 
     }
 
-
     private void onNavigationLeave() {
         navigation = (NavigationView) findViewById(R.id.navigation);
         navigation.setVisibility(View.INVISIBLE);
         btn_nav.setVisibility(View.VISIBLE);
         back.setVisibility(View.INVISIBLE);
     }
-
 
     public void onClickBack() {
         btn_nav = (ImageButton) findViewById(R.id.nav);
@@ -148,7 +143,7 @@ public class Home extends AppCompatActivity {
                                     String end = fn.getToday();
                                     onDates(start, end);
                                     PieChart pieChart = (PieChart) findViewById(R.id.piechart);
-                                    displayGraph(start, end, pieChart);
+                                    new Functions().displayGraph(start, end, pieChart, getApplicationContext());
                                 } else if (item.getTitle().equals("Weekly")) {
                                     overall.setText("Weekly overview");
                                     ArrayList<String> dates = new Functions().getCurrentWeek();
@@ -186,7 +181,6 @@ public class Home extends AppCompatActivity {
 
         return true;
     }
-
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -288,14 +282,12 @@ public class Home extends AppCompatActivity {
         finish();
     }
 
-
     @Override
     public void onBackPressed() {
 
         CustomDialogClass cdd = new CustomDialogClass(this);
         cdd.show();
     }
-
 
     public void onDates(String start, String end) {
         Schema sh = new Schema(getApplicationContext());
@@ -308,8 +300,18 @@ public class Home extends AppCompatActivity {
 
     }
 
+    public void displayAll(ArrayList<String> dates) {
+        String start = dates.get(0);
+        String end = dates.get(1);
+        onDates(start, end);
+        PieChart pieChart = (PieChart) findViewById(R.id.piechart);
+        new Functions().displayGraph(start, end, pieChart, getApplicationContext());
 
-    public void displayGraph(String start, String end, PieChart pieChart) {
+
+    }
+
+
+ /*   public void displayGraph(String start, String end, PieChart pieChart) {
         pieChart.setUsePercentValues(true);
         pieChart.setExtraOffsets(5, 10, 5, 5);
         pieChart.setDragDecelerationFrictionCoef(0.95f);
@@ -340,15 +342,13 @@ public class Home extends AppCompatActivity {
         pieChart.setData(data);
         pieChart.invalidate();
 
-    }
+    }*/
 
-    public void displayAll(ArrayList<String> dates) {
-        String start = dates.get(0);
-        String end = dates.get(1);
-        onDates(start, end);
-        PieChart pieChart = (PieChart) findViewById(R.id.piechart);
-        displayGraph(start, end, pieChart);
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
 
+        this.gestureObject.onTouchEvent(event);
+        return super.onTouchEvent(event);
     }
 
     /*@Override
@@ -409,7 +409,7 @@ public class Home extends AppCompatActivity {
 */
 
     // declare event for motion gesture
-    public boolean onTouchEvent(MotionEvent touchEvent) {
+   /* public boolean onTouchEvent(MotionEvent touchEvent) {
         switch (touchEvent.getAction()) {
             // when user first touch the screen get x and y cooordinate
             case MotionEvent.ACTION_DOWN: {
@@ -437,7 +437,7 @@ public class Home extends AppCompatActivity {
         }
         return false;
     }
-/*
+
     @Override
     public boolean onDown(MotionEvent e) {
         return false;
@@ -472,6 +472,29 @@ public class Home extends AppCompatActivity {
         ScrollView scrollView =(ScrollView)findViewById(R.id.scrollView);
         scrollView.setOnTouchListener();
     }*/
+
+    class LearnGesture extends GestureDetector.SimpleOnGestureListener {
+
+        @Override
+        public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX,
+                               float velocityY) {
+            if (e2.getX() > e1.getX()) {
+                Intent intent = new Intent(Home.this, Search.class);
+                finish();
+                startActivity(intent);
+
+            }
+
+            if (e1.getX() < e2.getX()) {
+                Intent intent = new Intent(Home.this, History.class);
+                finish();
+                startActivity(intent);
+            }
+            return true;
+        }
+    }
+
+
 }
 
 

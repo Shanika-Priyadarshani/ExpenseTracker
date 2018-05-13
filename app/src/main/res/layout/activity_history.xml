@@ -7,10 +7,10 @@
     tools:context="com.example.shanika.expensetracker.History">
 
     <LinearLayout
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteX="8dp"
         tools:layout_editor_absoluteY="8dp">
 
         <LinearLayout
@@ -85,8 +85,8 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:orientation="horizontal">
+            android:layout_height="80dp"
+            android:orientation="vertical">
 
             <TextView
 
@@ -101,6 +101,15 @@
                 android:textColor="@android:color/background_dark"
                 android:textSize="24sp"
                 android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="This may show your recent transactions upto last 100 records"
+                android:textStyle="bold|italic" />
         </LinearLayout>
 
         <ListView

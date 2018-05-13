@@ -24,13 +24,22 @@ import android.widget.Toast;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.concurrent.TimeUnit;
+
 
 public class Search extends AppCompatActivity {
     private static ImageButton back;
+    private static Date d1;
+    private static Date d2;
     private TextView startDateView;
     private ImageButton startDateBtn;
     private TextView endDateView;
     private ImageButton endDateBtn;
+    private String averageExpense, averageIncome;
+    private String totalIncome, totalExpense;
+
 
     private String type;
 
@@ -72,11 +81,12 @@ public class Search extends AppCompatActivity {
     }
 
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
+
     public void onStartDateButtonClicked() {
 
         startDateView = (TextView) findViewById(R.id.startDateView);
         Functions fn = new Functions();
-        String date = fn.addDate();
+        final String date = fn.addDate();
         startDateView.setText(date);
         startDateBtn = (ImageButton) findViewById(R.id.startDateBtn);
 
@@ -87,7 +97,7 @@ public class Search extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-                final Calendar c = Calendar.getInstance();
+                Calendar c = Calendar.getInstance();
                 int mYear = c.get(Calendar.YEAR);
                 int mMonth = c.get(Calendar.MONTH);
                 int mDay = c.get(Calendar.DAY_OF_MONTH);
@@ -99,6 +109,9 @@ public class Search extends AppCompatActivity {
                             @Override
                             public void onDateSet(DatePicker view, int year,
                                                   int monthOfYear, int dayOfMonth) {
+                                Calendar newDate = Calendar.getInstance();
+                                newDate.set(year, monthOfYear, dayOfMonth);
+                                d1 = newDate.getTime();
                                 String mn = "";
                                 String dy = "";
 
@@ -115,6 +128,7 @@ public class Search extends AppCompatActivity {
                             }
                         }, mYear, mMonth, mDay);
                 datePickerDialog.show();
+
             }
 
         });
@@ -134,7 +148,7 @@ public class Search extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-                final Calendar c = Calendar.getInstance();
+                Calendar c = Calendar.getInstance();
                 int mYear = c.get(Calendar.YEAR);
                 int mMonth = c.get(Calendar.MONTH);
                 int mDay = c.get(Calendar.DAY_OF_MONTH);
@@ -146,6 +160,9 @@ public class Search extends AppCompatActivity {
                             @Override
                             public void onDateSet(DatePicker view, int year,
                                                   int monthOfYear, int dayOfMonth) {
+                                Calendar newDate = Calendar.getInstance();
+                                newDate.set(year, monthOfYear, dayOfMonth);
+                                d2 = newDate.getTime();
                                 String mn = "";
                                 String dy = "";
 
@@ -179,8 +196,41 @@ public class Search extends AppCompatActivity {
             public void onClick(View v) {
                 String stDate = startDateView.getText().toString();
                 String enDate = endDateView.getText().toString();
+
+
                 ListView searchItemList = (ListView) findViewById(R.id.searchItemList);
                 Schema sh = new Schema(getApplicationContext());
+
+                if (d1 == null) {
+                    Calendar cal = GregorianCalendar.getInstance();
+                    cal.setTime(new Date());
+                    d1 = cal.getTime();
+                }
+
+                if (d2 == null) {
+                    Calendar cal = GregorianCalendar.getInstance();
+                    cal.setTime(new Date());
+                    d2 = cal.getTime();
+
+                }
+
+                long diff = d2.getTime() - d1.getTime();
+                int days = (int) TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
+                if (d1.equals(d2) || days == 0) {
+                    days = 1;
+                }
+
+                // Calculate the expence per day for the searched date period
+                averageIncome = String.valueOf((Integer.parseInt(sh.calculateTotalIncome(stDate, enDate))) / days);
+                // Calculate the income per day for the relavant period
+                averageExpense = String.valueOf((Integer.parseInt(sh.calculateTotalExpense(stDate, enDate))) / days);
+                // Calculate total income of the period
+                totalIncome = sh.calculateTotalIncome(stDate, enDate);
+                // Calculate total expense of the period
+                totalExpense = sh.calculateTotalExpense(stDate, enDate);
+
+
+
 
                 ArrayList<ArrayList<String>> ary = sh.getSearchList(stDate, enDate, type);
                 final int size = ary.size();
@@ -253,10 +303,13 @@ public class Search extends AppCompatActivity {
 
                     CustomAdaptor customAdaptor = new CustomAdaptor();
                     searchItemList.setAdapter(customAdaptor);
-
+                    setSummary();
                 }
             }
+
         });
+
+
     }
 
     public void onSearchMenuClicked(View v) {
@@ -322,6 +375,42 @@ public class Search extends AppCompatActivity {
             }
         });
 
+
+    }
+
+
+    public void setSummary() {
+
+        TextView tot_in_lbl = (TextView) findViewById(R.id.tot_in_lbl);
+        TextView tot_in_val = (TextView) findViewById(R.id.tot_in_val);
+        TextView tot_ex_lbl = (TextView) findViewById(R.id.tot_ex_lbl);
+        TextView tot_ex_val = (TextView) findViewById(R.id.tot_ex_val);
+        TextView avg_in_lbl = (TextView) findViewById(R.id.avg_in_lbl);
+        TextView avg_in_val = (TextView) findViewById(R.id.avg_in_val);
+        TextView avg_ex_lbl = (TextView) findViewById(R.id.avg_ex_lbl);
+        TextView avg_ex_val = (TextView) findViewById(R.id.avg_ex_val);
+        TextView balance_lbl = (TextView) findViewById(R.id.balance_lbl);
+        TextView balance_val = (TextView) findViewById(R.id.balance_val);
+        TextView list_name = (TextView) findViewById(R.id.list_name);
+
+        tot_in_lbl.setText("  Total income for the period : ");
+        tot_ex_lbl.setText("  Total expense for the period : ");
+        avg_in_lbl.setText("  Average income of a day : ");
+        avg_ex_lbl.setText("  Average expense of a day : ");
+        balance_lbl.setText("  The balance for the period : ");
+        list_name.setText("Transaction List");
+
+        if (totalIncome == null) {
+            totalIncome = "0";
+        }
+        if (totalExpense == null) {
+            totalExpense = "0";
+        }
+        tot_in_val.setText("Rs. " + totalIncome + ".00");
+        tot_ex_val.setText("Rs. " + totalExpense + ".00");
+        avg_in_val.setText("Rs. " + averageIncome + ".00");
+        avg_ex_val.setText("Rs. " + averageExpense + ".00");
+        balance_val.setText("Rs. " + String.valueOf((Integer.parseInt(totalIncome) - Integer.parseInt(totalExpense))) + ".00");
 
     }
 }

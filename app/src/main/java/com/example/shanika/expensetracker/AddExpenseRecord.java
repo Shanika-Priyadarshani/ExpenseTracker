@@ -22,7 +22,6 @@ import java.util.Calendar;
 
 public class AddExpenseRecord extends AppCompatActivity {
 
-
     public ImageButton back;
     private ImageButton expenseDateBtn;
     private DatePickerDialog datePickerDialog;

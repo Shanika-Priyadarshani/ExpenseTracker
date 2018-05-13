@@ -18,7 +18,6 @@ public class Schema {
         db = helper.getWritableDatabase();
     }
 
-
     public ArrayList<String> getMenuList(String type) {
 
         menuSet = new ArrayList<>();
@@ -52,19 +51,19 @@ public class Schema {
 
         if (type.equals("All Categories")){
 
-            cursor =db.rawQuery("Select * from Income where  DATE between '" + start + "' AND '" + end + "'UNION Select * from Expense where DATE between '" + start + "' AND '" + end + "'order by DATE ",null);
+            cursor = db.rawQuery("Select * from Income where  DATE between '" + start + "' AND '" + end + "'UNION Select * from Expense where DATE between '" + start + "' AND '" + end + "'order by DATE DESC", null);
 
         }
 
         else if (type.equals("All Incomes")){
 
-            cursor =db.rawQuery("Select * from Income where  DATE between '" + start + "' AND '" + end + "'order by DATE",null);
+            cursor = db.rawQuery("Select * from Income where  DATE between '" + start + "' AND '" + end + "'order by DATE DESC", null);
 
         }
 
         else if (type.equals("All Expenses")){
 
-            cursor =db.rawQuery("Select * from Expense where DATE between '" + start + "' AND '" + end + "'order by DATE",null);
+            cursor = db.rawQuery("Select * from Expense where DATE between '" + start + "' AND '" + end + "'order by DATE DESC", null);
 
         }
 
@@ -72,7 +71,7 @@ public class Schema {
             additional = db.rawQuery("Select TYPE from Category where CAT_NAME='" + type + "'", null);
             additional.moveToFirst();
             String inEx = additional.getString(additional.getColumnIndex("TYPE"));
-            cursor = db.rawQuery("Select * from '" + inEx + "'where Category='" + type + "' and DATE between '" + start + "' AND '" + end + "'order by DATE", null);
+            cursor = db.rawQuery("Select * from '" + inEx + "'where Category='" + type + "' and DATE between '" + start + "' AND '" + end + "'order by DATE DESC", null);
         }
 
         while (cursor.moveToNext()) {
@@ -225,4 +224,22 @@ public class Schema {
         dataForGraph.add(totals);
         return dataForGraph ;
     }
+/*
+    public double averageExpense(String start, String end,Date d1,Date d2){
+        double avgEx= Double.parseDouble(calculateTotalExpense( start,  end))/(numberOfDays(d1,d2));
+        return avgEx;
+
+    }
+
+    public double averageIncome(String start, String end,Date d1,Date d2){
+        double avgEx= Double.parseDouble(calculateTotalIncome( start,  end))/(numberOfDays(d1,d2));
+        return avgEx;
+
+    }
+
+    public int numberOfDays(Date start, Date end){
+        long diff=end.getTime()-start.getTime();
+        return (int) TimeUnit.DAYS.convert(diff,TimeUnit.MILLISECONDS);
+    }
+    */
 }

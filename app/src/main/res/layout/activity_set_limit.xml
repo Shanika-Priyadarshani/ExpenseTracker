@@ -67,7 +67,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="80dp"
+            android:layout_height="60dp"
             android:orientation="horizontal">
 
             <TextView
@@ -78,7 +78,7 @@
                 android:gravity="center"
                 android:text="Set a  Limit to your monthly Expenditure"
                 android:textColor="@android:color/black"
-                android:textSize="24sp"
+                android:textSize="22sp"
                 android:textStyle="bold" />
         </LinearLayout>
 
@@ -91,10 +91,11 @@
             <TextView
                 android:id="@+id/amount_name"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="30dp"
+                android:layout_marginLeft="10dp"
                 android:text="Limit Amount :"
                 android:textColor="@color/colorPrimaryDark"
-                android:textSize="26sp"
+                android:textSize="22sp"
                 android:textStyle="bold" />
 
             <LinearLayout
@@ -110,7 +111,7 @@
                     android:layout_marginLeft="60dp"
                     android:text="Rs."
                     android:textColor="@android:color/background_dark"
-                    android:textSize="30sp"
+                    android:textSize="24sp"
                     android:textStyle="bold" />
 
                 <EditText
@@ -127,18 +128,18 @@
         <LinearLayout
             android:id="@+id/bottonArea"
             android:layout_width="match_parent"
-            android:layout_height="100dp"
+            android:layout_height="80dp"
             android:gravity="center"
             android:orientation="horizontal"
             android:weightSum="1">
 
             <Button
                 android:id="@+id/doneLimitBtn"
-                android:layout_width="150dp"
+                android:layout_width="130dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="30dp"
                 android:layout_marginRight="20dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="5dp"
                 android:layout_weight="0.19"
                 android:background="#2d9ae8"
                 android:text="DONE"
@@ -147,13 +148,13 @@
 
             <Button
                 android:id="@+id/limitCancelBtn"
-                android:layout_width="150dp"
+                android:layout_width="130dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="40dp"
-                android:layout_marginRight="20dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginRight="30dp"
+                android:layout_marginTop="5dp"
                 android:layout_weight="1"
-                android:background="@android:color/holo_red_light"
+                android:background="@android:color/darker_gray"
                 android:text="CANCEL"
                 android:textSize="18sp"
                 android:textStyle="bold" />

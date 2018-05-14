@@ -22,16 +22,26 @@ public class Schema {
 
         menuSet = new ArrayList<>();
         Cursor cursor;
-        if (type == "") {
-            cursor = db.rawQuery("Select CAT_NAME from Category order by CAT_NAME", null);
-        } else {
-            cursor = db.rawQuery("Select CAT_NAME from Category where TYPE='" + type + "' order by CAT_NAME", null);
+
+        db.beginTransaction();
+
+        try {
+            if (type == "") {
+                cursor = db.rawQuery("Select CAT_NAME from Category order by CAT_NAME", null);
+            } else {
+                cursor = db.rawQuery("Select CAT_NAME from Category where TYPE=? order by CAT_NAME", new String[]{type});
+            }
+            db.setTransactionSuccessful();
+
+        } finally {
+
+            db.endTransaction();
         }
+
         while (cursor.moveToNext()) {
             String data;
             data = cursor.getString(cursor.getColumnIndex("CAT_NAME"));
             menuSet.add(data);
-
         }
         cursor.close();
         db.close();
@@ -49,30 +59,33 @@ public class Schema {
         Cursor additional;
         Cursor cursor;
 
-        if (type.equals("All Categories")){
+        db.beginTransaction();
 
-            cursor = db.rawQuery("Select * from Income where  DATE between '" + start + "' AND '" + end + "'UNION Select * from Expense where DATE between '" + start + "' AND '" + end + "'order by DATE DESC", null);
+        try {
+            if (type.equals("All Categories")) {
 
+                cursor = db.rawQuery("Select * from Income where  DATE between ? AND ? UNION Select * from Expense where DATE between ? AND ? order by DATE DESC", new String[]{start, end, start, end});
+
+            } else if (type.equals("All Incomes")) {
+
+                cursor = db.rawQuery("Select * from Income where  DATE between ? AND ? order by DATE DESC", new String[]{start, end});
+
+            } else if (type.equals("All Expenses")) {
+
+                cursor = db.rawQuery("Select * from Expense where DATE between ? AND  ? order by DATE DESC", new String[]{start, end});
+
+            } else {
+                additional = db.rawQuery("Select TYPE from Category where CAT_NAME=?", new String[]{type});
+                additional.moveToFirst();
+                String inEx = additional.getString(additional.getColumnIndex("TYPE"));
+                cursor = db.rawQuery("Select * from '" + inEx + "'where Category=? and DATE between ? AND ? order by DATE DESC", new String[]{type, start, end});
+            }
+
+            db.setTransactionSuccessful();
+        } finally {
+            db.endTransaction();
         }
 
-        else if (type.equals("All Incomes")){
-
-            cursor = db.rawQuery("Select * from Income where  DATE between '" + start + "' AND '" + end + "'order by DATE DESC", null);
-
-        }
-
-        else if (type.equals("All Expenses")){
-
-            cursor = db.rawQuery("Select * from Expense where DATE between '" + start + "' AND '" + end + "'order by DATE DESC", null);
-
-        }
-
-        else {
-            additional = db.rawQuery("Select TYPE from Category where CAT_NAME='" + type + "'", null);
-            additional.moveToFirst();
-            String inEx = additional.getString(additional.getColumnIndex("TYPE"));
-            cursor = db.rawQuery("Select * from '" + inEx + "'where Category='" + type + "' and DATE between '" + start + "' AND '" + end + "'order by DATE DESC", null);
-        }
 
         while (cursor.moveToNext()) {
 
@@ -98,8 +111,18 @@ public class Schema {
         Cursor cursorIn;
         Cursor cursorEx;
 
-        cursorIn = db.rawQuery("Select CAT_NAME from Category where TYPE='Income' order by CAT_NAME", null);
-        cursorEx = db.rawQuery("Select CAT_NAME from Category where TYPE='Expense' order by CAT_NAME", null);
+        db.beginTransaction();
+
+        try {
+            cursorIn = db.rawQuery("Select CAT_NAME from Category where TYPE='Income' order by CAT_NAME", null);
+            cursorEx = db.rawQuery("Select CAT_NAME from Category where TYPE='Expense' order by CAT_NAME", null);
+
+            db.setTransactionSuccessful();
+
+        } finally {
+
+            db.endTransaction();
+        }
 
         while (cursorIn.moveToNext()) {
             String data;
@@ -116,8 +139,6 @@ public class Schema {
         sets.add(incomeSet);
         sets.add(expenseSet);
         cursorIn.close();
-        System.out.println(incomeSet);
-        System.out.println(expenseSet);
         cursorEx.close();
         db.close();
         return sets;
@@ -135,29 +156,30 @@ public class Schema {
         Cursor additional;
         Cursor cursor;
 
-        if (type.equals("All Categories")){
+        db.beginTransaction();
 
-            cursor =db.rawQuery("Select * from Income UNION Select * from Expense order by DATE DESC Limit 100",null);
+        try {
+            if (type.equals("All Categories")) {
 
-        }
+                cursor = db.rawQuery("Select * from Income UNION Select * from Expense order by DATE DESC Limit 100", null);
 
-        else if (type.equals("All Incomes")){
+            } else if (type.equals("All Incomes")) {
 
-            cursor =db.rawQuery("Select * from Income order by DATE DESC LIMIT 50",null);
+                cursor = db.rawQuery("Select * from Income order by DATE DESC LIMIT 50", null);
 
-        }
+            } else if (type.equals("All Expenses")) {
 
-        else if (type.equals("All Expenses")){
+                cursor = db.rawQuery("Select * from Expense order by DATE DESC  LIMIT 50", null);
 
-            cursor =db.rawQuery("Select * from Expense order by DATE DESC  LIMIT 50",null);
-
-        }
-
-        else {
-            additional = db.rawQuery("Select TYPE from Category where CAT_NAME='" + type + "'", null);
-            additional.moveToFirst();
-            String inEx = additional.getString(additional.getColumnIndex("TYPE"));
-            cursor = db.rawQuery("Select * from '" + inEx + "'where Category='" + type + "'order by DATE DESC LIMIT 30", null);
+            } else {
+                additional = db.rawQuery("Select TYPE from Category where CAT_NAME=?", new String[]{type});
+                additional.moveToFirst();
+                String inEx = additional.getString(additional.getColumnIndex("TYPE"));
+                cursor = db.rawQuery("Select * from '" + inEx + "'where Category=? order by DATE DESC LIMIT 30", new String[]{type});
+            }
+            db.setTransactionSuccessful();
+        } finally {
+            db.endTransaction();
         }
 
         while (cursor.moveToNext()) {
@@ -181,7 +203,7 @@ public class Schema {
 
     public String calculateTotalIncome(String start, String end){
         String data=null;
-        Cursor cursor = db.rawQuery("Select sum(AMOUNT)as TotalIncome, count(AMOUNT) as counter from Income where DATE between '" + start + "' AND '" + end + "'", null);
+        Cursor cursor = db.rawQuery("Select sum(AMOUNT)as TotalIncome, count(AMOUNT) as counter from Income where DATE between ? AND ? ", new String[]{start, end});
 
         if (cursor.moveToFirst()) {
             data = Integer.toString(cursor.getInt(cursor.getColumnIndex("TotalIncome")));
@@ -194,7 +216,7 @@ public class Schema {
 
     public String calculateTotalExpense(String start, String end){
         String data=null;
-        Cursor cursor =db.rawQuery("Select sum(AMOUNT) as TotalExpense, count(AMOUNT) as counter from Expense  where DATE between '" + start + "' AND '" + end + "'",null);
+        Cursor cursor = db.rawQuery("Select sum(AMOUNT) as TotalExpense, count(AMOUNT) as counter from Expense  where DATE between ? AND ?", new String[]{start, end});
 
         if (cursor.moveToFirst()) {
             data = Integer.toString(cursor.getInt(cursor.getColumnIndex("TotalExpense")));
@@ -211,7 +233,7 @@ public class Schema {
         ArrayList<String> totals=new ArrayList<>();
         ArrayList<String>  categories = new ArrayList<>();
 
-        Cursor cursor =db.rawQuery("Select sum(AMOUNT) as TotalExpense, CATEGORY from Expense  where DATE between '" + start + "' AND '" + end + "' Group By CATEGORY",null);
+        Cursor cursor = db.rawQuery("Select sum(AMOUNT) as TotalExpense, CATEGORY from Expense  where DATE between ? AND ? Group By CATEGORY", new String[]{start, end});
 
         while (cursor.moveToNext()) {
 

@@ -42,10 +42,10 @@ public class AddCategory extends AppCompatActivity {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        //Assign the system's onBackPressed function to the button
                         onBackPressed();
                     }
                 }
-
         );
 
 
@@ -61,6 +61,7 @@ public class AddCategory extends AppCompatActivity {
     }
 
     // declare what happens when adding a category
+
     public void onAddButtonClick() {
         try {
             // get id of the button

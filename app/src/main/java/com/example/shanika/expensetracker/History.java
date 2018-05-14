@@ -76,7 +76,6 @@ public class History extends AppCompatActivity {
 
             class CustomAdaptor extends BaseAdapter{
 
-
                 @Override
                 public int getCount() {
                     return category.size();
@@ -131,22 +130,6 @@ public class History extends AppCompatActivity {
 
             CustomAdaptor customAdaptor =new CustomAdaptor();
             history_list.setAdapter(customAdaptor);
-
-            /*ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, ary) {
-                @Override
-                public View getView(int position, View convertView, ViewGroup parent) {
-                    View view = super.getView(position, convertView, parent);
-                    TextView textView = (TextView) view.findViewById(android.R.id.text1);
-                    textView.setTextColor(Color.BLUE);
-                    textView.setBackgroundColor(Color.GRAY);
-
-                    return view;
-                }
-
-            };
-            history_list.setAdapter(adapter);*/
-
-
         }
     }
 

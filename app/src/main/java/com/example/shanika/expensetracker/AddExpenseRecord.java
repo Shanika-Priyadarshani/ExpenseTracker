@@ -1,6 +1,5 @@
 package com.example.shanika.expensetracker;
 
-import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -10,7 +9,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -24,7 +22,6 @@ public class AddExpenseRecord extends AppCompatActivity {
 
     public ImageButton back;
     private ImageButton expenseDateBtn;
-    private DatePickerDialog datePickerDialog;
     private TextView expenseDateView;
     private TextView expenseAmount;
     private Spinner expenseCategorySet;
@@ -43,7 +40,6 @@ public class AddExpenseRecord extends AppCompatActivity {
         onClickBack();
         onExpenseAddButtonClick();
         onExpenseCancelButtonClicked();
-
         context = getApplicationContext();
 
         ArrayList<String> ary = new Schema(context).getMenuList("Expense");
@@ -65,34 +61,8 @@ public class AddExpenseRecord extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-                final Calendar c = Calendar.getInstance();
-                int mYear = c.get(Calendar.YEAR);
-                int mMonth = c.get(Calendar.MONTH);
-                int mDay = c.get(Calendar.DAY_OF_MONTH);
-
-                //pick the date
-                datePickerDialog = new DatePickerDialog(AddExpenseRecord.this,
-                        new DatePickerDialog.OnDateSetListener() {
-
-                            @Override
-                            public void onDateSet(DatePicker view, int year,
-                                                  int monthOfYear, int dayOfMonth) {
-                                String mn ="";
-                                String dy ="";
-
-                                if(String.valueOf(dayOfMonth).length()==1){
-                                    dy ="0";
-                                }
-
-                                if(String.valueOf(monthOfYear).length()==1){
-                                    mn ="0";
-                                }
-
-                                expenseDateView.setText( year+ "-"
-                                        +mn  + (monthOfYear + 1) + "-" + dy+dayOfMonth);
-                            }
-                        }, mYear, mMonth, mDay);
-                datePickerDialog.show();
+                Calendar c = Calendar.getInstance();
+                new Functions().getFormattedDate(c, expenseDateView, AddExpenseRecord.this);
             }
         });
 
@@ -132,10 +102,7 @@ public class AddExpenseRecord extends AppCompatActivity {
 
                     @Override
                     public void onClick(View v) {
-
-
                         int duration = Toast.LENGTH_SHORT;
-
                         //get the entered values
                         String category = expenseCategorySet.getSelectedItem().toString();
                         String date = expenseDateView.getText().toString();
@@ -143,20 +110,16 @@ public class AddExpenseRecord extends AppCompatActivity {
                         String amt = expenseAmount.getText().toString();
 
                         if (!amt.equals("")) {
-
                             Double amount = Double.parseDouble(amt);
-
                             //create database instance
                             DatabaseHelper dhelper = new DatabaseHelper(context);
                             boolean val = dhelper.insertExpenseRecord(date, category, amount, description);
-
                             //check the transaction success
                             if (val) {
                                 Toast toast = Toast.makeText(context, "New Expense Record added successfully", duration);
                                 toast.show();
                                 expenseAmount.setText("");
                                 expenseDescription.setText("");
-
                                 Warning warning = new Warning(AddExpenseRecord.this);
                                 double valueUptoNow = warning.checkExeeded();
                                 SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());

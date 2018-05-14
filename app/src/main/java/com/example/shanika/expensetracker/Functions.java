@@ -1,7 +1,10 @@
 package com.example.shanika.expensetracker;
 
+import android.app.DatePickerDialog;
 import android.content.Context;
 import android.graphics.Color;
+import android.widget.DatePicker;
+import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.data.PieData;
@@ -22,6 +25,7 @@ import java.util.GregorianCalendar;
 public class Functions {
 
     public String date;
+    private TextView expenseDateView;
 
     private static Calendar getCalenderForNow() {
         Calendar cal = GregorianCalendar.getInstance();
@@ -30,7 +34,6 @@ public class Functions {
     }
 
     public String addDate() {
-
         final Calendar c = Calendar.getInstance();
         return dateInFormat(c);
     }
@@ -206,5 +209,37 @@ public class Functions {
         pieChart.setData(data);
         pieChart.invalidate();
 
+    }
+
+    public void getFormattedDate(Calendar c, TextView expenseView, Context currentClassContext) {
+        DatePickerDialog datePickerDialog;
+        expenseDateView = expenseView;
+        int mYear = c.get(Calendar.YEAR);
+        int mMonth = c.get(Calendar.MONTH);
+        int mDay = c.get(Calendar.DAY_OF_MONTH);
+
+        //pick the date
+        datePickerDialog = new DatePickerDialog(currentClassContext,
+                new DatePickerDialog.OnDateSetListener() {
+
+                    @Override
+                    public void onDateSet(DatePicker view, int year,
+                                          int monthOfYear, int dayOfMonth) {
+                        String mn = "";
+                        String dy = "";
+
+                        if (String.valueOf(dayOfMonth).length() == 1) {
+                            dy = "0";
+                        }
+
+                        if (String.valueOf(monthOfYear).length() == 1) {
+                            mn = "0";
+                        }
+
+                        expenseDateView.setText(year + "-"
+                                + mn + (monthOfYear + 1) + "-" + dy + dayOfMonth);
+                    }
+                }, mYear, mMonth, mDay);
+        datePickerDialog.show();
     }
 }

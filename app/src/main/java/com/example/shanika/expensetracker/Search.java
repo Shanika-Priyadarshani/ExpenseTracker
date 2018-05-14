@@ -1,7 +1,6 @@
 package com.example.shanika.expensetracker;
 
 import android.annotation.TargetApi;
-import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
@@ -13,7 +12,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -39,8 +37,6 @@ public class Search extends AppCompatActivity {
     private ImageButton endDateBtn;
     private String averageExpense, averageIncome;
     private String totalIncome, totalExpense;
-
-
     private String type;
 
 
@@ -53,31 +49,6 @@ public class Search extends AppCompatActivity {
         onEndDateButtonClicked();
         onStartDateButtonClicked();
         onSearchButtonClicked();
-
-    }
-
-
-    public void onClickBack() {
-
-        back = (ImageButton) findViewById(R.id.back);
-        back.setOnClickListener(
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        onBackPressed();
-                    }
-                }
-
-        );
-
-
-    }
-
-    @Override
-    public void onBackPressed() {
-        Intent intent = new Intent(Search.this, Home.class);
-        startActivity(intent);
-        finish();
     }
 
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
@@ -85,12 +56,9 @@ public class Search extends AppCompatActivity {
     public void onStartDateButtonClicked() {
 
         startDateView = (TextView) findViewById(R.id.startDateView);
-        Functions fn = new Functions();
-        final String date = fn.addDate();
+        final String date = new Functions().addDate();
         startDateView.setText(date);
         startDateBtn = (ImageButton) findViewById(R.id.startDateBtn);
-
-
         //what happens on expense button click
         startDateBtn.setOnClickListener(new View.OnClickListener() {
 
@@ -98,36 +66,7 @@ public class Search extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Calendar c = Calendar.getInstance();
-                int mYear = c.get(Calendar.YEAR);
-                int mMonth = c.get(Calendar.MONTH);
-                int mDay = c.get(Calendar.DAY_OF_MONTH);
-
-                //pick the date
-                DatePickerDialog datePickerDialog = new DatePickerDialog(Search.this,
-                        new DatePickerDialog.OnDateSetListener() {
-
-                            @Override
-                            public void onDateSet(DatePicker view, int year,
-                                                  int monthOfYear, int dayOfMonth) {
-                                Calendar newDate = Calendar.getInstance();
-                                newDate.set(year, monthOfYear, dayOfMonth);
-                                d1 = newDate.getTime();
-                                String mn = "";
-                                String dy = "";
-
-                                if (String.valueOf(dayOfMonth).length() == 1) {
-                                    dy = "0";
-                                }
-
-                                if (String.valueOf(monthOfYear).length() == 1) {
-                                    mn = "0";
-                                }
-
-                                startDateView.setText(year + "-"
-                                        + mn + (monthOfYear + 1) + "-" + dy + dayOfMonth);
-                            }
-                        }, mYear, mMonth, mDay);
-                datePickerDialog.show();
+                new Functions().getFormattedDate(c, startDateView, Search.this);
 
             }
 
@@ -137,11 +76,9 @@ public class Search extends AppCompatActivity {
     public void onEndDateButtonClicked() {
 
         endDateView = (TextView) findViewById(R.id.endDateView);
-        Functions fn = new Functions();
-        String date = fn.addDate();
+        String date = new Functions().addDate();
         endDateView.setText(date);
         endDateBtn = (ImageButton) findViewById(R.id.endDateBtn);
-
         //what happens on expense button click
         endDateBtn.setOnClickListener(new View.OnClickListener() {
 
@@ -149,36 +86,7 @@ public class Search extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Calendar c = Calendar.getInstance();
-                int mYear = c.get(Calendar.YEAR);
-                int mMonth = c.get(Calendar.MONTH);
-                int mDay = c.get(Calendar.DAY_OF_MONTH);
-
-                //pick the date
-                DatePickerDialog datePickerDialog = new DatePickerDialog(Search.this,
-                        new DatePickerDialog.OnDateSetListener() {
-
-                            @Override
-                            public void onDateSet(DatePicker view, int year,
-                                                  int monthOfYear, int dayOfMonth) {
-                                Calendar newDate = Calendar.getInstance();
-                                newDate.set(year, monthOfYear, dayOfMonth);
-                                d2 = newDate.getTime();
-                                String mn = "";
-                                String dy = "";
-
-                                if (String.valueOf(dayOfMonth).length() == 1) {
-                                    dy = "0";
-                                }
-
-                                if (String.valueOf(monthOfYear).length() == 1) {
-                                    mn = "0";
-                                }
-
-                                endDateView.setText(year + "-"
-                                        + mn + (monthOfYear + 1) + "-" + dy + dayOfMonth);
-                            }
-                        }, mYear, mMonth, mDay);
-                datePickerDialog.show();
+                new Functions().getFormattedDate(c, endDateView, Search.this);
             }
 
         });
@@ -196,8 +104,6 @@ public class Search extends AppCompatActivity {
             public void onClick(View v) {
                 String stDate = startDateView.getText().toString();
                 String enDate = endDateView.getText().toString();
-
-
                 ListView searchItemList = (ListView) findViewById(R.id.searchItemList);
                 Schema sh = new Schema(getApplicationContext());
 
@@ -211,7 +117,6 @@ public class Search extends AppCompatActivity {
                     Calendar cal = GregorianCalendar.getInstance();
                     cal.setTime(new Date());
                     d2 = cal.getTime();
-
                 }
 
                 long diff = d2.getTime() - d1.getTime();
@@ -228,8 +133,6 @@ public class Search extends AppCompatActivity {
                 totalIncome = sh.calculateTotalIncome(stDate, enDate);
                 // Calculate total expense of the period
                 totalExpense = sh.calculateTotalExpense(stDate, enDate);
-
-
 
 
                 ArrayList<ArrayList<String>> ary = sh.getSearchList(stDate, enDate, type);
@@ -412,5 +315,24 @@ public class Search extends AppCompatActivity {
         avg_ex_val.setText("Rs. " + averageExpense + ".00");
         balance_val.setText("Rs. " + String.valueOf((Integer.parseInt(totalIncome) - Integer.parseInt(totalExpense))) + ".00");
 
+    }
+
+    public void onClickBack() {
+        back = (ImageButton) findViewById(R.id.back);
+        back.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        onBackPressed();
+                    }
+                }
+        );
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(Search.this, Home.class);
+        startActivity(intent);
+        finish();
     }
 }

@@ -1,6 +1,5 @@
 package com.example.shanika.expensetracker;
 
-import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,7 +7,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -24,7 +22,6 @@ public class AddIncomeRecord extends AppCompatActivity {
     public ImageButton back;
     private TextView dateview;
     private ImageButton dateBtn;
-    private DatePickerDialog datePickerDialog;
     private TextView dateView;
     private TextView incomeAmount;
     private Spinner IncomecategorySet;
@@ -60,34 +57,8 @@ public class AddIncomeRecord extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-                final Calendar c = Calendar.getInstance();
-                int mYear = c.get(Calendar.YEAR);
-                int mMonth = c.get(Calendar.MONTH);
-                int mDay = c.get(Calendar.DAY_OF_MONTH);
-
-
-                datePickerDialog = new DatePickerDialog(AddIncomeRecord.this,
-                        new DatePickerDialog.OnDateSetListener() {
-
-                            @Override
-                            public void onDateSet(DatePicker view, int year,
-                                                  int monthOfYear, int dayOfMonth) {
-                                String mn ="";
-                                String dy ="";
-
-                                if(String.valueOf(dayOfMonth).length()==1){
-                                    dy ="0";
-                                }
-
-                                if(String.valueOf(monthOfYear).length()==1){
-                                    mn ="0";
-                                }
-
-                                dateview.setText( year+ "-"
-                                      +mn  + (monthOfYear + 1) + "-" + dy+dayOfMonth);
-                            }
-                        }, mYear, mMonth, mDay);
-                datePickerDialog.show();
+                Calendar c = Calendar.getInstance();
+                new Functions().getFormattedDate(c, dateView, AddIncomeRecord.this);
             }
         });
 
